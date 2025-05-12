@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site avec Iframe</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Bienvenue sur mon site avec Iframe</h1>
-    <div class="iframe-container">
-        <iframe src="https://www.example.com" frameborder="0" allowfullscreen></iframe>
-    </div>
 
-    <script src="script.js"></script>
+  <header>
+    <div class="container">
+      <h1>👋 Hello, je suis <span>Ton Nom</span></h1>
+      <p>Développeur Web | HTML + CSS + JavaScript</p>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <h2>À propos de moi</h2>
+      <p>Je suis passionné par la création de sites web performants et accessibles. Mon objectif est de concevoir des expériences utilisateur intuitives et modernes.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2>Mes Projets</h2>
+      <div class="project-grid">
+        <div class="project">
+          <h3>Mon site avec Iframe</h3>
+          <iframe src="https://example.com" loading="lazy" sandbox></iframe>
+        </div>
+        <!-- Tu peux ajouter d'autres projets ici -->
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>Tu peux me contacter via <a href="mailto:tonemail@example.com">tonemail@example.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Ton Nom – Tous droits réservés.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
