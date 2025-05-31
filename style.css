@@ -101,16 +101,6 @@ main {
   padding: 0 20px;
 }
 
-section {
-  margin-bottom: 40px;
-}
-
-h2 {
-  color: var(--secondary-color);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 10px;
-}
-
 footer {
   background-color: var(--nav-bg);
   color: var(--nav-text);
@@ -118,3 +108,84 @@ footer {
   padding: 20px 0;
   margin-top: 40px;
 }
+    /* Arrière-plan avec une image SVG encodée en base64 */
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+    }
+
+    header p {
+      font-size: 1.2em;
+    }
+
+    .container2 {
+
+      width: 90%;
+      max-width: 960px;
+      margin: 40px auto;
+      position: relative;
+      z-index: 1;
+      
+    }
+
+    .section {
+      background-color: #2D2D2D;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: transform 1s ease-out, opacity 1s ease-out;
+    }
+
+    /* Classes d'animation initiale */
+    .slide-left {
+      transform: translateX(-100px);
+    }
+    .slide-right {
+      transform: translateX(100px);
+    }
+    .visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    h2 {
+      color: #8A5F13;
+      color: var(--secondary-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    paragraphe {
+        color: #FFAF24;
+
+    }
+    
+    /* Style de timeline pour les expériences */
+    .timeline {
+      border-left: 3px solid #8A5F13;
+      padding-left: 20px;
+      margin: 20px 0;
+    }
+    .timeline .entry {
+      margin-bottom: 20px;
+    }
+    .timeline .entry h3 {
+      margin: 0 0 5px;
+      color: #8A5F13;
+    }
+    .timeline .entry p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Animation au survol */
+    .section:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transform: scale(1.02);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
