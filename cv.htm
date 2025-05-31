@@ -1,192 +1,53 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projets d'Électronique</title>
-  <style>
-    /* --- Fond motif de circuit imprimé flouté --- */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-size: 600px;
-      z-index: -1;
-      opacity: 0.1;
-      filter: blur(2px);
-      animation: scrollBackground 60s linear infinite;
-    }
-
-    @keyframes scrollBackground {
-      from { background-position: 0 0; }
-      to { background-position: 0 1000px; }
-    }
-
-    /* --- Général --- */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f7fa;
-      color: #333;
-      animation: fadeIn 1s ease-in;
-    }
-
-    .container {
-      padding: 2rem;
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    .project-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .project-title {
-      font-size: 1.4rem;
-      color: #1e90ff;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-desc {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #e0e0e0;
-      margin-top: 2rem;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .loader {
-      width: 100px;
-      margin: 2rem auto;
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #1e90ff;
-      border-radius: 50%;
-      height: 100px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .project-details {
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .project-details h2 {
-      color: #1e90ff;
-    }
-
-    .anchor {
-      scroll-margin-top: 100px;
-    }
-  </style>
+  <title>CV</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div id="projects" class="container">
-    <!-- Les cartes seront ajoutées ici dynamiquement -->
-  </div>
-
-  <div id="loader" class="loader"></div>
-
-  <!-- Sections détaillées des projets -->
-  <div id="details"></div>
-
+  <header>
+    <h1>Mon CV</h1>
+  </header>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="but1.html">BUT 1</a>
+    <a href="but2.html">BUT 2</a>
+    <a href="but3.html">BUT 3</a>
+    <a href="cv.html">CV</a>
+    <a href="projets.html">Projets</a>
+  </nav>
+  <main>
+    <section>
+      <h2>Informations personnelles</h2>
+      <p><strong>Nom :</strong> Mon Nom</p>
+      <p><strong>Email :</strong> mon.email@example.com</p>
+      <p><strong>Téléphone :</strong> 0123456789</p>
+    </section>
+    <section>
+      <h2>Formation</h2>
+      <ul>
+        <li>BUT Informatique - Université XYZ (2022 - 2025)</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Compétences</h2>
+      <ul>
+        <li>Langages : Java, PHP, JavaScript, Python</li>
+        <li>Web : HTML, CSS, React</li>
+        <li>Bases de données : MySQL, PostgreSQL</li>
+        <li>Outils : Git, Docker</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Expérience professionnelle</h2>
+      <ul>
+        <li>Stage développeur web chez ABC Tech (2024 - 3 mois)</li>
+      </ul>
+    </section>
+  </main>
   <footer>
-    &copy; 2025 - Passion Électronique
+    &copy; 2025 Mon Nom
   </footer>
-
-  <script>
-    const projects = [
-      {
-        id: "pir",
-        title: "Détecteur de mouvement avec capteur PIR",
-        description: "Un système simple basé sur Arduino qui déclenche une alarme lorsqu'un mouvement est détecté.",
-        details: "Ce projet utilise un capteur PIR pour détecter une présence. Il peut être utilisé pour des alarmes ou l’automatisation."
-      },
-      {
-        id: "esp32",
-        title: "Station météo avec ESP32",
-        description: "Mesurez la température, l'humidité et la pression atmosphérique et envoyez les données en WiFi.",
-        details: "Grâce à des capteurs DHT22 ou BME280, cette station peut afficher les données sur une page web via l'ESP32."
-      },
-      {
-        id: "led",
-        title: "Afficheur LED défilement de texte",
-        description: "Affichez un message personnalisé avec une matrice de LED contrôlée par Arduino.",
-        details: "Utilise des matrices 8x8 ou 8x32 avec le module MAX7219 pour créer un panneau d'affichage défilant."
-      },
-      {
-        id: "robot",
-        title: "Robot suiveur de ligne",
-        description: "Un petit robot capable de suivre une ligne noire grâce à des capteurs infrarouges.",
-        details: "Idéal pour apprendre les bases de la robotique : moteurs, ponts H, capteurs IR, etc."
-      },
-      {
-        id: "lm317",
-        title: "Alimentation réglable avec LM317",
-        description: "Créez une alimentation de laboratoire simple et économique avec un régulateur de tension.",
-        details: "Permet de générer une tension de sortie variable en ajustant un potentiomètre sur le LM317."
-      }
-    ];
-
-    const projectContainer = document.getElementById('projects');
-    const loader = document.getElementById('loader');
-    const detailsContainer = document.getElementById('details');
-
-    setTimeout(() => {
-      loader.style.display = 'none';
-
-      projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.innerHTML = `
-          <div class="project-title">${project.title}</div>
-          <div class="project-desc">${project.description}</div>
-        `;
-        card.addEventListener('click', () => {
-          document.getElementById(project.id).scrollIntoView({ behavior: 'smooth' });
-        });
-        projectContainer.appendChild(card);
-
-        const detail = document.createElement('div');
-        detail.className = 'project-details anchor';
-        detail.id = project.id;
-        detail.innerHTML = `
-          <h2>${project.title}</h2>
-          <p>${project.details}</p>
-        `;
-        detailsContainer.appendChild(detail);
-      });
-    }, 1500);
-  </script>
-
 </body>
 </html>
