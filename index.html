@@ -898,46 +898,6 @@
             }
         }
         
-        /* Geometric elements */
-        .geometric-element {
-            position: absolute;
-            z-index: var(--z-below);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-circle);
-            opacity: 0.2;
-            animation: float 20s infinite linear;
-        }
-        
-        .geo-1 {
-            width: 250px;
-            height: 250px;
-            border-radius: var(--radius-circle);
-            top: 10%;
-            right: 15%;
-            border-color: var(--color-accent-light);
-            animation: rotate 60s linear infinite;
-        }
-        
-        .geo-2 {
-            width: 300px;
-            height: 300px;
-            transform: rotate(45deg);
-            bottom: 15%;
-            left: 10%;
-            border-color: var(--color-accent-light);
-            animation: rotate 70s linear infinite reverse;
-        }
-        
-        .geo-3 {
-            width: 350px;
-            height: 100px;
-            border-radius: var(--radius-pill);
-            top: 40%;
-            left: 20%;
-            transform: rotate(-30deg);
-            border-color: rgba(255, 255, 255, 0.1);
-            animation: float 20s ease-in-out infinite;
-        }
         
         /*
         ==============================================
@@ -1283,11 +1243,6 @@
     <div class="particles-container" id="particles"></div>
     
     <div class="noise-overlay"></div>
-    
-    <!-- Éléments géométriques -->
-    <div class="geometric-element geo-1"></div>
-    <div class="geometric-element geo-2"></div>
-    <div class="geometric-element geo-3"></div>
     
     <!-- Navigation -->
     <div class="nav-container">
