@@ -11,10 +11,57 @@
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+      margin: 0;
+      font-family: sans-serif;
+      background-image: url('assets/images/fond.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+    }
+
+    /* 2. Ajouter un effet de flou à l’arrière-plan */
+    .background-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      z-index: -2;
+    }
+
+    /* 3. Ajouter un carré gris semi-transparent par-dessus */
+    .overlay-square {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      background-color: rgba(128, 128, 128, 0.4); /* gris transparent */
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* 4. Contenu normal du site */
+    .content {
+      padding: 50px;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .content h1 {
+      font-size: 3em;
+    }
+
+    .content p {
+      line-height: 1.8;
+      font-size: 1.2em;
+    }
 }
 
 header {
