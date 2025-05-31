@@ -1,8 +1,9 @@
 /* style.css */
 :root {
-  --primary-color: #ff6f61;
-  --secondary-color: #6b5b95;
-  --background-color: #f7f7f7;
+   --color-bg-primary: #121212;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #222222;
+  --color-bg-accent: #2d2d2d;
   --text-color: #333;
   --header-bg: #fff;
   --nav-bg: #6b5b95;
