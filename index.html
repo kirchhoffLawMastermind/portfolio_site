@@ -1236,6 +1236,73 @@
                 width: 100%;
             }
         }
+            .container2 {
+
+      width: 90%;
+      max-width: 960px;
+      margin: 40px auto;
+      position: relative;
+      z-index: 1;
+      
+    }
+
+    .section {
+      background-color: #2D2D2D;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: transform 1s ease-out, opacity 1s ease-out;
+    }
+
+    /* Classes d'animation initiale */
+    .slide-left {
+      transform: translateX(-100px);
+    }
+    .slide-right {
+      transform: translateX(100px);
+    }
+    .visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    h2 {
+      color: #8A5F13;
+      margin-top: 0;
+    }
+
+    paragraphe {
+        color: #FFAF24;
+
+    }
+    
+    /* Style de timeline pour les expériences */
+    .timeline {
+      border-left: 3px solid #8A5F13;
+      padding-left: 20px;
+      margin: 20px 0;
+    }
+    .timeline .entry {
+      margin-bottom: 20px;
+    }
+    .timeline .entry h3 {
+      margin: 0 0 5px;
+      color: #8A5F13;
+    }
+    .timeline .entry p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Animation au survol */
+    .section:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transform: scale(1.02);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
     </style>
 </head>
 <body>
@@ -1277,6 +1344,47 @@
                     <p class="hero-description">
                         Explorez un univers où créativité et précision se rencontrent pour donner vie à des environnements virtuels uniques, signés SkyNight.
                     </p>
+                    <div class="container2">
+    <!-- Section À propos -->
+    <section class="section slide-left">
+      <h2>À propos de moi</h2>
+      <paragraphe>Passionné par le développement et l'innovation, je développe en permanence mes capacités à l'aide de petits projets électroniques et informatiques.</paragraphe>
+    </section>
+
+    <!-- FORMATIONS -->
+    <section class="section slide-right">
+      <h2>FORMATIONS</h2>
+      <div class="timeline">
+        <div class="entry">
+          <h3> IUT DE RENNES, Université de Rennes</h3>
+          <paragraphe>Septembre 2024(en cours) : BUT Génie Électrique et Informatique Industrielle (GEII).</paragraphe>
+        </div>
+        <div class="entry">
+          <h3>JOLIOT-CURIE (RENNES)</h3>
+          <paragraphe>2021 - Juin 2024 : BAC STI2D (Sciences et technologies de l'industrie et du développement durable), Mention bien.</paragraphe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Compétences -->
+    <section class="section slide-left">
+      <h2>Compétences</h2>
+      <paragraphe>
+        <ul>
+            <h3>Logiciel</h3>
+            <li>SolidWorks (prototypage/Modélisation 3D )</li>
+            <li>Blender (animation/Modélisation 3D  )</li>
+            <li>Spider, PyCharm, Visual Studio ,mu editor, Microship studio. code (développement )</li>
+            <li>Proteus (conception et fabrication d'une console de rétro gaming et d’un variateur de lumière)</li>
+
+            <h3>Programmation</h3>
+            <li>Python (simulation d’un Rubik's cube numérique )</li>
+            <li>C++ (Arduino R3 Travaux pratiques Sti2D )</li>
+            <li>Assembleur AVR  (atmega328p )</li> 
+        </ul>
+    </paragraphe>
+    </section>
+  </div>
                 </div>
             </div>
         </section>
@@ -1444,6 +1552,29 @@
                 element.style.transform = `translate(${xOffset}px, ${yOffset}px) ${element.classList.contains('geo-1') ? 'rotate(0)' : element.classList.contains('geo-2') ? 'rotate(45deg)' : 'rotate(-30deg)'}`;
             });
         });
+         // Lors du chargement du DOM, on configure l'observation de chaque section
+    document.addEventListener("DOMContentLoaded", function() {
+      const sections = document.querySelectorAll('.section');
+
+      const observerOptions = {
+        root: null,
+        threshold: 0.2
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Désactivation de l'observation après l'animation
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
     </script>
 </body>
 </html>
