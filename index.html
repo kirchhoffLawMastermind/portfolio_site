@@ -1,30 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Accueil</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
-    <h1>Bienvenue sur mon site BUT</h1>
+    <h1>Arthur Dupont</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button id="menu-toggle">☰</button>
+    </nav>
   </header>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="but1.html">BUT 1</a>
-    <a href="but2.html">BUT 2</a>
-    <a href="but3.html">BUT 3</a>
-    <a href="cv.html">CV</a>
-    <a href="projets.html">Projets</a>
-  </nav>
-  <main>
-    <section>
-      <h2>Présentation</h2>
-      <p>Bienvenue sur mon site personnel où je partage mon parcours en BUT Informatique, mon CV et mes projets en électronique et informatique.</p>
-    </section>
-  </main>
+
+  <section id="about">
+    <h2>À propos de moi</h2>
+    <p>Développeur web passionné, j’aime transformer des idées en expériences interactives.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Mes Projets</h2>
+    <div class="grid">
+      <!-- Exemple de projet -->
+      <div class="card">
+        <img src="images/projet1.png" alt="Projet 1" />
+        <h3>Projet 1</h3>
+        <p>Brève description du projet.</p>
+        <a href="#" target="_blank">Voir en détail</a>
+      </div>
+      <!-- Dupliquez la carte pour chaque projet -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <form id="contact-form">
+      <label for="name">Nom</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="5" required></textarea>
+
+      <button type="submit">Envoyer</button>
+      <p class="feedback"></p>
+    </form>
+  </section>
+
   <footer>
-    &copy; 2025 Mon Nom
+    <p>© 2025 Arthur Dupont</p>
   </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
