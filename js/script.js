@@ -1,11 +1,23 @@
-// Toggle menu mobile
+// Menu responsive
 const nav = document.querySelector('nav');
 const toggle = document.getElementById('menu-toggle');
 toggle.addEventListener('click', () => {
   nav.classList.toggle('open');
 });
 
-// Validation simple et feedback
+// Animation au scroll
+const boxes = document.querySelectorAll('.box, .card');
+window.addEventListener('scroll', () => {
+  boxes.forEach(box => {
+    const rect = box.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      box.style.opacity = 1;
+      box.style.transform = 'translateY(0)';
+    }
+  });
+});
+
+// Formulaire
 const form = document.getElementById('contact-form');
 const feedback = document.querySelector('.feedback');
 
@@ -16,12 +28,10 @@ form.addEventListener('submit', e => {
   const message = form.message.value.trim();
 
   if (!name || !email || !message) {
-    feedback.textContent = 'Merci de remplir tous les champs.';
+    feedback.textContent = 'Veuillez remplir tous les champs.';
     feedback.style.color = 'red';
     return;
   }
 
-  feedback.textContent = 'Message envoyé avec succès !'; 
+  feedback.textContent = 'Message envoyé avec succès !';
   feedback.style.color = 'green';
-  form.reset();
-});
