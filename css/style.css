@@ -1,10 +1,14 @@
 :root {
-  --bleu-fonce: #1e2a38;
-  --bleu-clair: #4da8da;
-  --blanc: #ffffff;
-  --gris-clair: #f0f0f0;
-  --orange: #ff6f3c;
+  --bleu-fonce: #25283d;
+  --bleu-clair: #fdfffc;
+  --blanc: #2ec4b6;
+  --gris-clair: #e71d36;
+  --orange: #ff9f1c;
 }
+
+
+
+
 
 body {
   margin: 0;
@@ -165,4 +169,5 @@ footer {
     display: flex;
   }
 }
+
 
