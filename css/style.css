@@ -12,7 +12,28 @@ body {
   background-color: var(--gris-clair);
   color: var(--bleu-fonce);
 }
-
+.menu {
+  display: inline-block;
+}
+.menu-list {
+  background-color: #111F4D;
+  display: flex;
+}
+.menu-item {
+  font-size: 2.5rem;
+  & a {
+    color: #F2F4F7;
+    padding: 2rem;
+    border-bottom: .2rem solid transparent;
+    transition: border .2s ease;
+    &:hover {
+      border-color: #E43A19;
+    }
+  }
+}
+.active {
+  background-color: #E43A19;
+}
 header {
   background-color: var(--bleu-fonce);
   color: var(--blanc);
@@ -144,3 +165,4 @@ footer {
     display: flex;
   }
 }
+
