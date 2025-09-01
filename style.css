@@ -1,192 +1,123 @@
-/* style.css */
-:root {
-   --color-bg-primary: #121212;
-  --color-bg-secondary: #1a1a1a;
-  --color-bg-tertiary: #222222;
-  --color-bg-accent: #2d2d2d;
-  --text-color: #333;
-  --header-bg: #fff;
-  --nav-bg: #6b5b95;
-  --nav-text: #fff;
-  --nav-hover: #ff6f61;
+/* Reset minimal */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-      margin: 0;
-      font-family: sans-serif;
-      background-image: url('assets/img/fond.JPG');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100%;
-    }
-
-    /* 2. Ajouter un effet de flou à l’arrière-plan */
-    .background-blur {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(5px);
-      z-index: -2;
-    }
-
-    /* 3. Ajouter un carré gris semi-transparent par-dessus */
-    .overlay-square {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      height: 300px;
-      background-color: rgba(128, 128, 128, 0.4); /* gris transparent */
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    /* 4. Contenu normal du site */
-    .content {
-      padding: 50px;
-      color: white;
-      text-shadow: 1px 1px 2px black;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .content h1 {
-      font-size: 3em;
-    }
-
-    .content p {
-      line-height: 1.8;
-      font-size: 1.2em;
-    }
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f9f9f9;
 }
 
 header {
-  background-color: var(--header-bg);
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-header h1 {
-  margin: 0;
-  color: var(--primary-color);
-}
-
-nav {
-  background-color: var(--nav-bg);
+  background: #333;
+  color: #fff;
+  padding: 1rem;
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
+nav ul {
+  display: flex;
+  list-style: none;
+}
+nav ul li {
+  margin-left: 1rem;
+}
 nav a {
-  color: var(--nav-text);
-  margin: 0 15px;
+  color: #fff;
   text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
+}
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
 }
 
-nav a:hover {
-  color: var(--nav-hover);
+section {
+  padding: 2rem;
 }
 
-main {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 20px;
+#projects .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card img {
+  width: 100%;
+  display: block;
+}
+.card h3 {
+  margin: 1rem;
+}
+.card p {
+  margin: 0 1rem 1rem;
+}
+.card a {
+  display: block;
+  margin: 0 1rem 1rem;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+form {
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+form label {
+  margin-top: 1rem;
+}
+form input,
+form textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+form button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: none;
+  background: #0066cc;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.feedback {
+  margin-top: 0.5rem;
+  font-style: italic;
 }
 
 footer {
-  background-color: var(--nav-bg);
-  color: var(--nav-text);
   text-align: center;
-  padding: 20px 0;
-  margin-top: 40px;
+  padding: 1rem;
+  background: #333;
+  color: #fff;
 }
-    /* Arrière-plan avec une image SVG encodée en base64 */
 
-    header h1 {
-      margin: 0;
-      font-size: 3em;
-    }
-
-    header p {
-      font-size: 1.2em;
-    }
-
-    .container2 {
-
-      width: 90%;
-      max-width: 960px;
-      margin: 40px auto;
-      position: relative;
-      z-index: 1;
-      
-    }
-
-    .section {
-      background-color: #2D2D2D;
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transition: transform 1s ease-out, opacity 1s ease-out;
-    }
-
-    /* Classes d'animation initiale */
-    .slide-left {
-      transform: translateX(-100px);
-    }
-    .slide-right {
-      transform: translateX(100px);
-    }
-    .visible {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    h2 {
-      color: #8A5F13;
-      color: var(--secondary-color);
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 10px;
-      margin-top: 0;
-    }
-
-    paragraphe {
-        color: #FFAF24;
-
-    }
-    
-    /* Style de timeline pour les expériences */
-    .timeline {
-      border-left: 3px solid #8A5F13;
-      padding-left: 20px;
-      margin: 20px 0;
-    }
-    .timeline .entry {
-      margin-bottom: 20px;
-    }
-    .timeline .entry h3 {
-      margin: 0 0 5px;
-      color: #8A5F13;
-    }
-    .timeline .entry p {
-      margin: 0;
-      font-size: 14px;
-      color: #555;
-    }
-
-    /* Animation au survol */
-    .section:hover {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      transform: scale(1.02);
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+/* Responsive menu */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    display: none;
+  }
+  #menu-toggle {
+    display: block;
+  }
+  nav.open ul {
+    display: flex;
+  }
+}
