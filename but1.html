@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>BUT 1</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arthur Malan - Portfolio GEII</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body >
   <header>
-    <h1>Année 1 - BUT Informatique</h1>
-  </header>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="but1.html">BUT 1</a>
-    <a href="but2.html">BUT 2</a>
-    <a href="but3.html">BUT 3</a>
-    <a href="cv.html">CV</a>
-    <a href="projets.html">Projets</a>
-  </nav>
-  <main>
-    <section>
-      <h2>Mes apprentissages</h2>
-      <p>Durant ma première année, j'ai acquis des bases solides en programmation, en algorithmique et en bases de données.</p>
-    </section>
-    <section>
-      <h2>Projets réalisés</h2>
+    <h1>Arthur Malan</h1>
+    <nav>
       <ul>
-        <li>Développement d'une application de gestion de tâches en Java.</li>
-        <li>Création d'un site web statique en HTML/CSS.</li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
       </ul>
-    </section>
-  </main>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Etudiant en GEII</h2>
+    <p>Bienvenue dans mon portfolio.</p>
+  </section>
+  <section class="encadrement">
+    <h2>À propos de moi</h2>
+    <p>Je suis Arthur Malan, étudiant en Génie Électrique et Informatique Industrielle (GEII). Passionné par l'électronique, la programmation et les systèmes embarqués, je crée des projets innovants alliant matériel et logiciel.</p>
+  <section class="domotique">
+  <h2>Contrôle Domotique</h2>
+  <div class="panel">
+    <div class="switch">
+      <label>Lumière</label>
+      <button id="light-toggle">🔦 OFF</button>
+    </div>
+    <div class="status">
+      <p id="status-text">Système en veille...</p>
+    </div>
+  </div>
+</section>
+
   <footer>
-    &copy; 2025 Mon Nom
+    <p>© 2025 Arthur Malan</p>
   </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
