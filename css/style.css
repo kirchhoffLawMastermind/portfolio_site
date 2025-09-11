@@ -10,6 +10,27 @@
   --reflet: #f5f0e1;
 
 }
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 0;
+}
+
+.menu li a {
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-family: sans-serif;
+}
+
+.menu li i {
+  font-size: 24px;
+  margin-bottom: 5px;
+  display: block;
+  color: #007BFF;
+}
 
 body {
   margin: 0;
@@ -157,3 +178,4 @@ input[type="range"] {
   width: 100%;
   accent-color: #b08d57;
 }
+
