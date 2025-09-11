@@ -3,81 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio GEII - Arthur Malan</title>
+  <title>Arthur Malan - Portfolio GEII</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body >
   <header>
     <h1>Arthur Malan</h1>
-<nav class="menu">
-  <ul class="menu-list">
-    <li class="menu-item"><a href="index.html" class="fa fa-home active">Accueil</a></li>
-    <li class="menu-item"><a href="but1.html" class="fa fa-codepen">BUT 1</a></li>
-    <li class="menu-item"><a href="but2.html" class="fa fa-git">BUT 2</a></li>
-    <li class="menu-item"><a href="but3.html" class="fa fa-css3">BUT 3</a></li>
-    <li class="menu-item"><a href="cv.html" class="fa fa-html5">CV</a></li>
-    <li class="menu-item"><a href="projets.html" class="fa fa-html5">Projets</a></li>
-  </ul>
-</nav>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section id="hero">
-    <h2>Bienvenue sur mon Portfolio</h2>
-    <p>Découvrez mes projets réalisés durant mes 3 années en GEII.</p>
+  <section class="hero">
+    <h2>Etudiant en GEII</h2>
+    <p>Bienvenue dans mon portfolio.</p>
   </section>
-
-  <section id="about">
+  <section class="encadrement">
     <h2>À propos de moi</h2>
-    <div class="box">
-      <p>Étudiant passionné en Génie Électrique et Informatique Industrielle, j’ai développé des compétences en électronique, automatisme, programmation et systèmes embarqués.</p>
+    <p>Je suis Arthur Malan, étudiant en Génie Électrique et Informatique Industrielle (GEII). Passionné par l'électronique, la programmation et les systèmes embarqués, je crée des projets innovants alliant matériel et logiciel.</p>
+  <section class="domotique">
+  <h2>Contrôle Domotique</h2>
+  <div class="panel">
+    <div class="switch">
+      <label>Lumière</label>
+      <button id="light-toggle">🔦 OFF</button>
     </div>
-  </section>
-
-  <section id="projects">
-    <h2>Mes Projets</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="images/projet1.jpg" alt="Projet 1" />
-        <h3>1ère année – Robot suiveur de ligne</h3>
-        <p>Conception d’un robot autonome capable de suivre une trajectoire grâce à des capteurs infrarouges et une carte Arduino.</p>
-      </div>
-      <div class="card">
-        <img src="images/projet2.jpg" alt="Projet 2" />
-        <h3>2ème année – Système domotique connecté</h3>
-        <p>Création d’un système de contrôle d’éclairage et température via une interface web et des capteurs IoT.</p>
-      </div>
-      <div class="card">
-        <img src="images/projet3.jpg" alt="Projet 3" />
-        <h3>3ème année – Supervision industrielle</h3>
-        <p>Développement d’une application de supervision avec Grafcet, automate Siemens et interface HMI pour une chaîne de production.</p>
-      </div>
+    <div class="status">
+      <p id="status-text">Système en veille...</p>
     </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <form id="contact-form">
-      <label for="name">Nom</label>
-      <input type="text" id="name" required />
-
-      <label for="email">Email</label>
-      <input type="email" id="email" required />
-
-      <label for="message">Message</label>
-      <textarea id="message" rows="5" required></textarea>
-
-      <button type="submit">Envoyer</button>
-      <p class="feedback"></p>
-    </form>
-  </section>
+  </div>
+</section>
 
   <footer>
-    <p>© 2025 Arthur Malan - Portfolio GEII</p>
+    <p>© 2025 Arthur Malan</p>
   </footer>
 
   <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
