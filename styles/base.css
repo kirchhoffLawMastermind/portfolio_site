@@ -55,3 +55,16 @@ body {
     min-height: 200vh;
     visibility: hidden;
 }
+
+/* RESPONSIVE BASE */
+@media (max-width: 1024px) {
+    body {
+        overflow-y: auto; /* Permet le scroll naturel sur mobile si besoin */
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-grid {
+        display: none; /* Simplifie le fond sur mobile */
+    }
+}

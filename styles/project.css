@@ -65,3 +65,38 @@
     color: #0c0c0c;
     border-color: white;
 }
+
+@media (max-width: 1024px) {
+    #project-view {
+        height: 70vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        overflow-y: auto;
+    }
+    .project-image-container {
+        grid-column: 1;
+        height: 35vh;
+    }
+    .project-info {
+        grid-column: 1;
+        padding: 4vw;
+    }
+    #project-view-title {
+        font-size: 8vw;
+    }
+    .project-desc {
+        font-size: 4vw;
+    }
+    #close-project {
+        font-size: 4vw;
+        padding: 2vh 8vw;
+    }
+}
+
+@media (max-width: 768px) {
+    #project-view {
+        bottom: 0;
+        height: 100vh;
+        padding-top: 10vh;
+    }
+}

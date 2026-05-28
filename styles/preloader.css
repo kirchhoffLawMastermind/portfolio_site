@@ -37,3 +37,9 @@
     background-clip: text;
     color: transparent;
 }
+
+@media (max-width: 768px) {
+    .name-bold {
+        font-size: 15vw;
+    }
+}

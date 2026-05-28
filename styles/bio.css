@@ -28,3 +28,24 @@
     will-change: transform, opacity;
     backface-visibility: hidden;
 }
+
+@media (max-width: 1024px) {
+    .bio-section {
+        top: 25vh;
+        left: 5vw;
+        width: 90vw;
+    }
+    .bio-text {
+        font-size: 3.5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .bio-section {
+        top: 20vh;
+    }
+    .bio-text {
+        font-size: 5.5vw;
+        line-height: 1.2;
+    }
+}

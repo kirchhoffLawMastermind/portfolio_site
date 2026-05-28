@@ -50,3 +50,29 @@
     transform: translateY(0);
     background: transparent;
 }
+
+@media (max-width: 1024px) {
+    .card {
+        height: 35vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-wrapper {
+        bottom: 5vh;
+    }
+    .card {
+        height: 30vh;
+        aspect-ratio: 2 / 3;
+    }
+    .cards-container {
+        gap: 3vw;
+        padding-right: 3vw;
+    }
+    .card-content {
+        font-size: 1.1rem;
+        padding: 1.5rem 1rem;
+        transform: translateY(0); /* Toujours visible sur mobile */
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
+}
