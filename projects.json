@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Electronique 01",
+        "description": "Exploration des circuits imprimés et du prototypage rapide pour des applications de mesure haute précision.",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80"
+    },
+    {
+        "id": 2,
+        "title": "Projet Électronique",
+        "description": "Développement d'un système de contrôle intelligent basé sur microcontrôleur avec interface utilisateur OLED.",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
+    },
+    {
+        "id": 3,
+        "title": "Robotique",
+        "description": "Conception d'un bras robotisé articulé avec asservissement PID et reconnaissance visuelle de base.",
+        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"
+    },
+    {
+        "id": 4,
+        "title": "Systèmes embarqués",
+        "description": "Optimisation logicielle pour capteurs IoT basse consommation sur architecture ARM Cortex.",
+        "image": "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&q=80"
+    }
+]

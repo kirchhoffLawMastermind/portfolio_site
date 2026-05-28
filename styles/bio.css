@@ -1,0 +1,30 @@
+.bio-section {
+    overflow: visible;
+    position: fixed;
+    top: 30vh;
+    left: 40vw;
+    width: 60vw;
+    padding: 0 1vw;
+}
+
+.bio-text {
+    overflow: visible;
+    font-size: 1.7vw;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+.bio-word {
+    display: inline-block;
+    background: linear-gradient(to right, #bdbdbd, #ff9d41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-repeat: no-repeat;
+    
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}

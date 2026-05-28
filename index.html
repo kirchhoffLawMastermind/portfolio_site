@@ -1,97 +1,119 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="assets/icons/ICON_CV.ico" type="image/x-icon"/>
-  <title>Arthur Malan - Portfolio GEII</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Malan - Portfolio</title>
+    <link rel="stylesheet" href="styles/fonts.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/preloader.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="styles/bio.css">
+    <link rel="stylesheet" href="styles/project.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 </head>
-<body >
-  <header>
-    <h1>Arthur Malan</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">
-        <img src="assets\icons\ICON_index.png" alt="Icone Accueil" style="width:128px; height:128px; vertical-align:middle;"></a></li>
-        <li><a href="but1.html">
-        <img src="assets\icons\ICON_BUT_1.png" alt="Icone BUT 1" style="width:128px; height:128px; vertical-align:middle;"></a></li>
-        <li><a href="but2.html">
-        <img src="assets\icons\ICON_BUT_2.png" alt="Icone BUT 2" style="width:128px; height:128px; "></a></li>
-        <li><a href="but3.html">
-        <img src="assets\icons\ICON_BUT_3.png" alt="Icone BUT 3" style="width:128px; height:128px;"></a></li>
-        <li><a href="cv.html">
-        <img src="assets\icons\ICON_CV.png" alt="Icone CV" style="width:64px; height:64px;"></a></li>
-        <!--
-        <li><a href="but3.html">
-        <img src="assets\icons\ICON_Projets.png" alt="Icone Projets" style="width:64px; height:64px; vertical-align:middle;">Projets</a></li>
-        <li><a href="cv.html">
-        <img src="assets\icons\ICON_Contact.png" alt="Icone cv" style="width:64px; height:64px; vertical-align:middle;">Contact</a></li>
-        -->
-        </ul>
-    </nav>
-  </header>
+<body>
 
-  <section class="hero">
-    <h2>Etudiant en GEII</h2>
-    <p>Bienvenue dans mon portfolio.</p>
-  </section>
-  <section class="encadrement">
-    <h2>À propos de moi</h2>
-    <p>Je suis Arthur Malan, étudiant en Génie Électrique et Informatique Industrielle (GEII). Passionné par l'électronique, la programmation et les systèmes embarqués, je crée des projets innovants alliant matériel et logiciel.</p>
-  <section class="domotique">
-  <h2>TESTE</h2>
-  <div class="panel">
-    <div class="switch">
-      <label>Lumière</label>
-      <button id="light-toggle">🔦 OFF</button>
+    <div class="bg-grid">
+        <div class="line"><div class="border"></div></div>
+        <div class="line"><div class="border"></div></div>
+        <div class="line"><div class="border"></div></div>
+        <div class="line"><div class="border"></div></div>
+        <div class="line"></div>
     </div>
-    <div class="status">
-      <p id="status-text">Système en veille...</p>
+
+    <div class="top-nav-container">
+        <button id="info-btn">
+            <span>Infos</span>
+            <div class="icon-wrapper">
+                <div class="icon-container">
+                    <svg class="arrow-svg arrow-svg--main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                    <svg class="arrow-svg arrow-svg--duplicate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </button>
     </div>
-  </div>
-</section>
 
-  <footer>
-    <p>© 2025 Arthur Malan</p>
-  </footer>
+    <div class="logos-fixed-wrapper">
+        <img src="assets/img/UNIRENNES_LOGOblanc.png" alt="Université de Rennes Logo" class="nav-logo">
+        <img src="assets/img/IUTRennes-GEII_blanc.png" alt="IUT Rennes GEII Logo" class="nav-logo">
+    </div>
 
-  <script src="js/script.js"></script>
+    <div id="info-modal" data-lenis-prevent>
+        <div class="modal-content">
+
+            <div class="info-card photo-card">
+
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Arthur Malan Portrait">
+            </div>
+
+            <div class="info-card desc-card">
+                Étudiant en BUT GEII (Génie Électrique et Informatique Industrielle), je suis dédié à la construction de systèmes embarqués et d'interfaces pour la prochaine génération de l'électronique. Ma pratique intègre le hardware, la stratégie de code et la créativité pour créer des prototypes qui mobilisent des solutions concrètes.
+            </div>
+
+            <div class="info-card list-card">
+                <div class="card-title">Formation</div>
+                <div class="list-content two-col">
+                    <div>Actuellement</div>
+                    <div>BUT GEII à l'IUT</div>
+                    <div>Précédemment</div>
+                    <div>Bac STI2D</div>
+                    <div>Spécialité</div>
+                    <div>Systèmes d'Information et Numérique</div>
+                </div>
+            </div>
+
+            <div class="info-card list-card">
+                <div class="card-title">Contact & Liens</div>
+                <div class="list-content two-col">
+                    <div style="color: #666;">Mail</div>
+                    <div><a href="mailto:arthur.malan@free.fr">arthur.malan@free.fr</a></div>
+                    <div style="color: #666;">Localisation</div>
+                    <div>Rennes, France</div>
+                    <div style="color: #666;">Social</div>
+                    <div><a href="https://linkedin.com/in/arthur-malan-">LinkedIn</a> &nbsp; <a href="https://github.com/kirchhoffLawMastermind">GitHub</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="preloader">
+        <h1 id="hero-name" class="name-bold">Arthur Malan.</h1>
+    </div>
+    <main id="main-content">
+        <section class="bio-section">
+            <p class="bio-text">
+                Étudiant en BUT GEII (Génie Électrique et Informatique Industrielle), je suis passionné par l'électronique, du prototypage jusqu'aux systèmes embarqués complexes en passant par l'automatisation.
+            </p>
+        </section>
+
+        <section class="portfolio-wrapper">
+            <div class="cards-container">
+                <!-- Les cartes seront générées dynamiquement par JS -->
+            </div>
+        </section>
+            </div>
+        </section>
+
+        <section id="project-view">
+            <div class="project-image-container">
+                <img id="project-view-img" src="" alt="Détails du projet">
+            </div>
+            <div class="project-info">
+                <h2 id="project-view-title">Titre</h2>
+                <p id="project-view-desc" class="project-desc">Description du projet.</p>
+                <button id="close-project">Fermer le projet</button>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

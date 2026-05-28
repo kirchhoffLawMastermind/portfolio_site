@@ -1,0 +1,39 @@
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.name-bold {
+    font-weight: 600;
+    font-size: 10vw; /* Augmenté pour éviter la pixellisation au scale */
+    letter-spacing: -0.05em;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    will-change: transform, top, left;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    backface-visibility: hidden;
+}
+.name-bold span {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(20px);
+    will-change: opacity, filter, transform;
+    backface-visibility: hidden;
+
+    background: linear-gradient(to bottom right, #ff9d41, #bdbdbd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
