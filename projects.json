@@ -1,13 +1,23 @@
 [
     {
         "id": 1,
-        "title": "Electronique 01",
-        "description": "Exploration des circuits imprimés et du prototypage rapide pour des applications de mesure haute précision.",
+        "title": "4 compétences",
+        "description": "titre : C1 Concevoir ",
+        "description": "Critères d'évaluation observables",
+        "description": "Démarche méthodique de conception (compréhension détaillée de l'analyse fonctionnelle, choix de structure, dimensionnement, simulation, prototype…)",
+        "description": "La  structure proposée est cohérente et répond complètement au schéma fonctionnel",
+        "description": "Choix et/ou dimensionnement des éléments constitutifs de la structure répondant aux contraintes (coût, encombrement, disponibilité matérielle, innovation technologique…)",
+        "description": "titre : C2 Vérifier ",
+        "description": "Critères d'évaluation observables",
+        "description": "titre : C3 Maintenir ",
+        "description": "Critères d'évaluation observables",
+        "description": "titre : C3 Maintenir ",
+        "description": "Critères d'évaluation observables",
         "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80"
     },
     {
         "id": 2,
-        "title": "Projet Électronique",
+        "title": "carnets de bord numériques",
         "description": "Développement d'un système de contrôle intelligent basé sur microcontrôleur avec interface utilisateur OLED.",
         "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
     },
