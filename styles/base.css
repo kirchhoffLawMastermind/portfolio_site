@@ -8,6 +8,8 @@
     display: none;
 }
 body {
+    /* Chemin de votre image */
+    background-image: url('assets/img/IMG_BACKGROUND.JPG');
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-color: #0c0c0c;
