@@ -1,6 +1,7 @@
 import { initPreloader } from './preloader.js';
 import { initCards } from './cards.js';
 import { initModal } from './modal.js';
+import { initWatercolorReveal } from './watercolor-reveal.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(raf)
 
     initModal();
+    initWatercolorReveal();
     initCards().then(() => {
         initPreloader();
     });
