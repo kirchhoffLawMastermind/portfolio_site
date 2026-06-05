@@ -3,10 +3,12 @@ const BG_COLOR = [0.047, 0.047, 0.047];
 
 const CONFIG = {
     maskScale: 0.5,
-    brushSize: 0.44,
+    brushSizeBase: 0.0001, // Pratiquement 0 au repos pour éviter les grosses taches
+    brushSizeMax: 0.9,     // Très large en mouvement
     softness: 1.0,
     persistence: 0.991,
-    displacement: 0.018
+    displacementBase: 0.0001, // Idem pour la distorsion
+    displacementMax: 0.18  // Distorsion très forte
 };
 
 const VERT = `
@@ -124,7 +126,9 @@ void main() {
     reveal = clamp(reveal, 0.0, 1.0);
 
     float tint = 0.72 + 0.5 * pap;
-    img *= tint;
+    
+    // Filtre d'assombrissement global pour l'image révélée (0.45 = 55% plus sombre)
+    img *= tint * 0.45;
 
     float rim = smoothstep(0.0, 0.25, mask) * (1.0 - smoothstep(0.25, 0.7, mask));
     vec3 col = mix(uBg, img, reveal);
@@ -261,15 +265,18 @@ export function initWatercolorReveal() {
     resize();
     window.addEventListener('resize', resize);
 
+    const targetMouse = { x: 0.5, y: 0.5 };
     const mouse = { x: 0.5, y: 0.5 };
     const prevMouse = { x: 0.5, y: 0.5 };
     let activeTarget = 0.0;
     let moved = false;
 
     window.addEventListener('pointermove', (e) => {
-        mouse.x = e.clientX / window.innerWidth;
-        mouse.y = 1.0 - e.clientY / window.innerHeight;
+        targetMouse.x = e.clientX / window.innerWidth;
+        targetMouse.y = 1.0 - e.clientY / window.innerHeight;
         if (!moved) {
+            mouse.x = targetMouse.x;
+            mouse.y = targetMouse.y;
             prevMouse.x = mouse.x;
             prevMouse.y = mouse.y;
             moved = true;
@@ -281,11 +288,27 @@ export function initWatercolorReveal() {
     let read = 0;
     let write = 1;
     const start = performance.now();
+    let currentVelocity = 0.0; // Poursuit la vélocité avec un lissage
 
     function frame() {
         const time = (performance.now() - start) * 0.001;
         const gate = window.preloaderFinished ? 1.0 : 0.0;
         const active = activeTarget * gate;
+
+        // Interpolation douce de la position de la souris (Lerp)
+        prevMouse.x = mouse.x;
+        prevMouse.y = mouse.y;
+        mouse.x += (targetMouse.x - mouse.x) * 0.12; 
+        mouse.y += (targetMouse.y - mouse.y) * 0.12;
+
+        // Calcul de la vélocité lissée
+        const dx = mouse.x - prevMouse.x;
+        const dy = mouse.y - prevMouse.y;
+        const targetVel = Math.min(Math.sqrt(dx * dx + dy * dy) * 45.0, 1.0);
+        currentVelocity += (targetVel - currentVelocity) * 0.1;
+        
+        const dynamicBrush = CONFIG.brushSizeBase + currentVelocity * (CONFIG.brushSizeMax - CONFIG.brushSizeBase);
+        const dynamicDisplacement = CONFIG.displacementBase + currentVelocity * (CONFIG.displacementMax - CONFIG.displacementBase);
 
         const src = targets[read];
         const dst = targets[write];
@@ -298,15 +321,13 @@ export function initWatercolorReveal() {
         gl.uniform2f(mU.uPrevMouse, prevMouse.x, prevMouse.y);
         gl.uniform2f(mU.uMouse, mouse.x, mouse.y);
         gl.uniform1f(mU.uAspect, canvas.width / canvas.height);
-        gl.uniform1f(mU.uBrush, CONFIG.brushSize);
+        gl.uniform1f(mU.uBrush, dynamicBrush);
         gl.uniform1f(mU.uSoftness, CONFIG.softness);
         gl.uniform1f(mU.uPersistence, CONFIG.persistence);
         gl.uniform1f(mU.uTime, time);
         gl.uniform1f(mU.uActive, active);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-        prevMouse.x = mouse.x;
-        prevMouse.y = mouse.y;
         activeTarget *= 0.9;
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -321,7 +342,7 @@ export function initWatercolorReveal() {
         const c = cover();
         gl.uniform2f(rU.uCover, c[0], c[1]);
         gl.uniform3f(rU.uBg, BG_COLOR[0], BG_COLOR[1], BG_COLOR[2]);
-        gl.uniform1f(rU.uDisplacement, imageLoaded ? CONFIG.displacement : 0.0);
+        gl.uniform1f(rU.uDisplacement, imageLoaded ? dynamicDisplacement : 0.0);
         gl.uniform1f(rU.uTime, time);
         gl.uniform2f(rU.uResolution, canvas.width, canvas.height);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
