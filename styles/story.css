@@ -1,6 +1,3 @@
-/* Image d'introduction (intro.jpg).
-   Phase 0 : haut-droite, largeur = 1 bande (20vw), collée au bord droit.
-   Phase 1 : descend en bas-droite, largeur = 2 bandes (40vw), hauteur suit le ratio. */
 #intro-img {
     position: fixed;
     top: 0;
@@ -12,19 +9,20 @@
     will-change: width, top, transform, opacity;
     pointer-events: none;
     backface-visibility: hidden;
+    opacity: 0; /* caché dès le CSS pour éviter tout flash au chargement (GSAP le révèle) */
 }
 
-/* Liens en texte brut, à gauche de l'image, visibles au tout début. */
 #intro-links {
     position: fixed;
     top: 2.5vh;
-    right: 21vw; /* juste à gauche de l'image (qui démarre à 80vw) */
+    right: 21vw;
     z-index: 6;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.6vh;
     text-align: right;
+    opacity: 0; /* caché dès le CSS pour éviter tout flash au chargement (GSAP le révèle) */
 }
 
 #intro-links a {
@@ -42,7 +40,6 @@
     color: #ff9d41;
 }
 
-/* Texte d'intro (storytelling) révélé derrière l'image dans les 2 bandes de droite. */
 #intro-text {
     position: fixed;
     top: 14vh;
@@ -51,6 +48,7 @@
     z-index: 4;
     padding: 0 0.5vw;
     pointer-events: none;
+    visibility: hidden; /* masqué jusqu'à ce que JS découpe le texte en mots (évite le flash) */
 }
 
 .intro-paragraph {
