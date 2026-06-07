@@ -52,7 +52,7 @@ body {
 
 #main-content {
 
-    min-height: 200vh;
+    min-height: 540vh; /* fournit la distance de scroll pour la séquence storytelling */
     visibility: hidden;
 }
 

@@ -5,6 +5,8 @@ import { initWatercolorReveal } from './watercolor-reveal.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -14,17 +16,37 @@ document.addEventListener("DOMContentLoaded", () => {
         mouseMultiplier: 1,
         smoothTouch: false,
         touchMultiplier: 2,
-        infinite: true,
+        infinite: false, // scroll fini : nécessaire pour piloter la séquence storytelling
     })
 
     window.lenis = lenis;
 
-    function raf(time) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-    }
+    // Intégration Lenis <-> ScrollTrigger : un seul ticker, ScrollTrigger suit le scroll de Lenis
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
 
-    requestAnimationFrame(raf)
+    // On bloque le scroll tant que l'intro (preloader) n'est pas terminée
+    lenis.stop();
+
+    // Liens en texte brut de l'intro
+    const introInfos = document.getElementById("intro-infos");
+    const introProjets = document.getElementById("intro-projets");
+    if (introInfos) {
+        introInfos.addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById("info-btn").click(); // réutilise l'ouverture de la modale
+        });
+    }
+    if (introProjets) {
+        introProjets.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Défile jusqu'à la fin de la séquence : état final avec tous les projets
+            lenis.scrollTo(window.innerHeight * 4.0, { duration: 2 });
+        });
+    }
 
     initModal();
     initWatercolorReveal();

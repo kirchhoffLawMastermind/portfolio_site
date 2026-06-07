@@ -18,8 +18,8 @@ export async function initCards() {
         </div>
     `).join("");
 
-    gsap.set(".card", { opacity: 0, y: 500 });
-
+    // Les cartes restent visibles ; c'est tout le .portfolio-wrapper qui est
+    // masqué puis révélé par la séquence storytelling (voir story.js / preloader.js).
     const contentWidth = container.scrollWidth;
 
     const originalContent = container.innerHTML;
