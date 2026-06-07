@@ -60,12 +60,17 @@ export async function initPreloader() {
     const letters = heroName.querySelectorAll("span");
 
     gsap.set(heroName, { xPercent: -50, yPercent: -50, top: "50%", left: "50%", scale: initialScale });
+    // Le nom est positionné/échelonné et ses lettres sont à opacity 0 : on peut révéler
+    // le conteneur sans flash (masqué via CSS jusqu'ici).
+    gsap.set(".preloader", { visibility: "visible" });
 
     gsap.set("#main-content", { visibility: "visible" });
 
     // Préparation des deux blocs de texte (révélés plus tard, au scroll)
     prepareWords(".bio-text", "bio-word");
     prepareWords(".intro-paragraph", "intro-word");
+    // Les mots d'intro sont prêts (opacity 0) : on peut rendre le conteneur visible sans flash.
+    gsap.set("#intro-text", { visibility: "visible" });
 
     // États initiaux des éléments qui n'apparaissent qu'en phase 2 du scroll
     gsap.set(["#intro-img", "#intro-links"], { opacity: 0 });
