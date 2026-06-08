@@ -8,6 +8,8 @@
     transform: translateY(100vh);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    overflow: hidden;
     will-change: transform;
 }
 
@@ -31,7 +33,6 @@
     flex-direction: column;
     overflow: hidden;
     min-height: 0;
-    height: 100%;
 }
 
 .project-info-scroll {
