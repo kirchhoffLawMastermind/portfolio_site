@@ -44,7 +44,7 @@ export async function initCards() {
                     <span class="preuve-ref">${p.ref}</span>
                     <div class="preuve-details">
                         <div class="preuve-intitule">${p.intitule}</div>
-                        <div class="preuve-meta">${p.source} — ${p.date}</div>
+                        <div class="preuve-meta">${p.source}, ${p.date}</div>
                     </div>
                 </div>
             `).join('');
@@ -71,6 +71,7 @@ export async function initCards() {
 
         window.isProjectOpen = true;
         if (window.lenis) window.lenis.stop();
+        document.body.classList.add('project-open');
 
         const projectId = parseInt(card.dataset.projectId, 10);
         const project = projects.find(p => p.id === projectId);
@@ -181,6 +182,7 @@ export async function initCards() {
     document.getElementById("close-project").addEventListener("click", () => {
         window.isProjectOpen = false;
         if (window.lenis) window.lenis.start();
+        document.body.classList.remove('project-open');
         container.dataset.dockActive = "false";
         const allCards = Array.from(container.querySelectorAll(".card"));
 
