@@ -70,6 +70,7 @@ export async function initCards() {
         if (!card) return;
 
         window.isProjectOpen = true;
+        if (window.lenis) window.lenis.stop();
 
         const projectId = parseInt(card.dataset.projectId, 10);
         const project = projects.find(p => p.id === projectId);
@@ -179,6 +180,7 @@ export async function initCards() {
 
     document.getElementById("close-project").addEventListener("click", () => {
         window.isProjectOpen = false;
+        if (window.lenis) window.lenis.start();
         container.dataset.dockActive = "false";
         const allCards = Array.from(container.querySelectorAll(".card"));
 
