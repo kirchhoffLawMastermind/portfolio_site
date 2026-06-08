@@ -1,15 +1,14 @@
 #project-view {
     position: fixed;
-    bottom: 5vh;
+    bottom: 0;
     left: 0;
     width: 100vw;
-    height: 60vh;
+    height: 72vh;
     z-index: 150;
     transform: translateY(100vh);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr;
-    overflow: hidden;
     will-change: transform;
 }
 
@@ -28,37 +27,31 @@
 
 .project-info {
     grid-column: 3 / 6;
-    padding: 0 1vw 0 2vw;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    min-height: 0;
+    position: relative;
+    height: 72vh;
 }
 
 .project-info-scroll {
-    flex: 1;
-    min-height: 0;
+    position: absolute;
+    inset: 0 1vw 5.5vh 2vw;
     overflow-y: auto;
-    padding-right: 1vw;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.2) transparent;
+    scrollbar-width: none;
+}
+
+.project-info-scroll::-webkit-scrollbar {
+    display: none;
 }
 
 body.project-open {
     overflow: hidden;
 }
 
-.project-info-scroll::-webkit-scrollbar {
-    width: 4px;
-}
-
-.project-info-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.2);
-    border-radius: 2px;
-}
-
 .project-info-header {
     margin-bottom: 1.5vh;
+}
+
+.project-section:last-child {
+    padding-bottom: 2vh;
 }
 
 #project-view-title {
@@ -219,9 +212,9 @@ body.project-open {
 /* Bouton fermer */
 
 #close-project {
-    flex-shrink: 0;
-    align-self: flex-start;
-    margin-top: 1.5vh;
+    position: absolute;
+    bottom: 0;
+    left: 2vw;
     padding: 1.2vh 2.5vw;
     background: transparent;
     color: white;
@@ -254,11 +247,9 @@ body.project-open {
     }
     .project-info {
         grid-column: 1;
-        padding: 3vw 4vw;
-        overflow: hidden;
     }
     .project-info-scroll {
-        padding-right: 2vw;
+        inset: 0 4vw 7vh 4vw;
     }
     #project-view-title {
         font-size: 6vw;
@@ -294,6 +285,7 @@ body.project-open {
     #close-project {
         font-size: 4vw;
         padding: 2vh 8vw;
+        left: 4vw;
     }
 }
 

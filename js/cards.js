@@ -27,26 +27,6 @@ export async function initCards() {
     let baseSpeed = 0.5;
     window.isProjectOpen = false;
 
-    let _scrollBlocker = null;
-
-    function blockBackgroundScroll() {
-        _scrollBlocker = (e) => {
-            if (!e.target.closest('#project-view')) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        };
-        document.addEventListener('wheel', _scrollBlocker, { passive: false, capture: true });
-        document.addEventListener('touchmove', _scrollBlocker, { passive: false, capture: true });
-    }
-
-    function unblockBackgroundScroll() {
-        if (_scrollBlocker) {
-            document.removeEventListener('wheel', _scrollBlocker, { capture: true });
-            document.removeEventListener('touchmove', _scrollBlocker, { capture: true });
-            _scrollBlocker = null;
-        }
-    }
 
     function renderProjectDetails(project) {
         document.getElementById("project-view-title").textContent = project.title;
@@ -93,7 +73,6 @@ export async function initCards() {
         window.isProjectOpen = true;
         if (window.lenis) window.lenis.stop();
         document.body.classList.add('project-open');
-        blockBackgroundScroll();
 
         const projectId = parseInt(card.dataset.projectId, 10);
         const project = projects.find(p => p.id === projectId);
@@ -205,7 +184,6 @@ export async function initCards() {
         window.isProjectOpen = false;
         if (window.lenis) window.lenis.start();
         document.body.classList.remove('project-open');
-        unblockBackgroundScroll();
         container.dataset.dockActive = "false";
         const allCards = Array.from(container.querySelectorAll(".card"));
 

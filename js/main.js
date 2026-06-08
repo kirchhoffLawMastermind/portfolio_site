@@ -7,6 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // Enregistré AVANT Lenis : bloque tous les wheel events hors du projet quand un projet est ouvert.
+    // Capture phase + window = priorité maximale, stopImmediatePropagation empêche Lenis de recevoir l'event.
+    window.addEventListener('wheel', (e) => {
+        if (window.isProjectOpen && !e.target.closest('#project-view')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, { passive: false, capture: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (window.isProjectOpen && !e.target.closest('#project-view')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, { passive: false, capture: true });
+
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -24,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Intégration Lenis <-> ScrollTrigger : un seul ticker, ScrollTrigger suit le scroll de Lenis
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
+        if (!window.isProjectOpen) lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
 
