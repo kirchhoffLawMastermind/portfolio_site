@@ -131,9 +131,34 @@
             <div class="project-image-container">
                 <img id="project-view-img" src="" alt="Détails du projet">
             </div>
-            <div class="project-info">
-                <h2 id="project-view-title">Titre</h2>
-                <p id="project-view-desc" class="project-desc">Description du projet.</p>
+            <div class="project-info" data-lenis-prevent>
+                <div class="project-info-scroll">
+                    <div class="project-info-header">
+                        <h2 id="project-view-title"></h2>
+                        <p id="project-view-subtitle" class="project-subtitle"></p>
+                    </div>
+                    <p id="project-view-desc" class="project-desc"></p>
+
+                    <div class="project-section">
+                        <h3 class="project-section-title">Apprentissages critiques</h3>
+                        <ul id="project-view-apprentissages" class="project-list"></ul>
+                    </div>
+
+                    <div class="project-section">
+                        <h3 class="project-section-title">Résultats clés</h3>
+                        <ul id="project-view-resultats" class="project-list project-list--results"></ul>
+                    </div>
+
+                    <div class="project-section">
+                        <h3 class="project-section-title">Preuves</h3>
+                        <div id="project-view-preuves" class="preuves-grid"></div>
+                    </div>
+
+                    <div class="project-section">
+                        <h3 class="project-section-title">Auto-évaluation</h3>
+                        <div id="project-view-autoevaluation" class="autoeval-grid"></div>
+                    </div>
+                </div>
                 <button id="close-project">Fermer le projet</button>
             </div>
         </section>

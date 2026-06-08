@@ -12,14 +12,12 @@ export async function initCards() {
     }
 
     container.innerHTML = projects.map(project => `
-        <div class="card" data-description="${project.description}">
+        <div class="card" data-project-id="${project.id}">
             <img src="${project.image}" alt="${project.title}">
             <div class="card-content">${project.title}</div>
         </div>
     `).join("");
 
-    // Les cartes restent visibles ; c'est tout le .portfolio-wrapper qui est
-    // masqué puis révélé par la séquence storytelling (voir story.js / preloader.js).
     const contentWidth = container.scrollWidth;
 
     const originalContent = container.innerHTML;
@@ -29,19 +27,55 @@ export async function initCards() {
     let baseSpeed = 0.5;
     window.isProjectOpen = false;
 
+    function renderProjectDetails(project) {
+        document.getElementById("project-view-title").textContent = project.title;
+        document.getElementById("project-view-subtitle").textContent = project.subtitle || '';
+        document.getElementById("project-view-desc").textContent = project.description;
+
+        document.getElementById("project-view-apprentissages").innerHTML =
+            project.apprentissages.map(a => `<li>${a}</li>`).join('');
+
+        document.getElementById("project-view-resultats").innerHTML =
+            project.resultats_cles.map(r => `<li>${r}</li>`).join('');
+
+        document.getElementById("project-view-preuves").innerHTML =
+            project.preuves.map(p => `
+                <div class="preuve-item">
+                    <span class="preuve-ref">${p.ref}</span>
+                    <div class="preuve-details">
+                        <div class="preuve-intitule">${p.intitule}</div>
+                        <div class="preuve-meta">${p.source} — ${p.date}</div>
+                    </div>
+                </div>
+            `).join('');
+
+        document.getElementById("project-view-autoevaluation").innerHTML =
+            Object.entries(project.auto_evaluation).map(([key, val]) => {
+                const label = key.replace(/_/g, ' ');
+                const cls = val === "Tout à fait d'accord" ? 'val-high' : 'val-medium';
+                return `
+                    <div class="autoeval-item">
+                        <span class="autoeval-key">${label}</span>
+                        <span class="autoeval-val ${cls}">${val}</span>
+                    </div>
+                `;
+            }).join('');
+
+        const scrollEl = document.querySelector('.project-info-scroll');
+        if (scrollEl) scrollEl.scrollTop = 0;
+    }
+
     container.addEventListener("click", (e) => {
         const card = e.target.closest(".card");
         if (!card) return;
 
         window.isProjectOpen = true;
 
-        const imgPath = card.querySelector("img").src;
-        const titleText = card.querySelector(".card-content").textContent;
-        const descriptionText = card.dataset.description;
+        const projectId = parseInt(card.dataset.projectId, 10);
+        const project = projects.find(p => p.id === projectId);
+        if (!project) return;
 
         const imgEl = document.getElementById("project-view-img");
-        const titleEl = document.getElementById("project-view-title");
-        const descEl = document.getElementById("project-view-desc");
 
         const allCards = Array.from(container.querySelectorAll(".card"));
         const clickedIndex = allCards.indexOf(card);
@@ -55,10 +89,8 @@ export async function initCards() {
 
         allCards.forEach(c => {
             if (!groupCards.includes(c)) {
-
                 gsap.to(c, { opacity: 0, scale: 0.8, duration: 0.5, pointerEvents: "none" });
             } else {
-
                 c.style.pointerEvents = "auto";
                 if (c === card) {
                     c.classList.add("is-selected");
@@ -70,44 +102,50 @@ export async function initCards() {
             }
         });
 
-        if (card.classList.contains("was-open-flag")) {
-
-        }
-
         gsap.to(container, {
             x: targetX,
             duration: 1.2,
             ease: "power4.inOut",
             onUpdate: function() {
-
                 xPos = gsap.getProperty(container, "x");
             }
         });
 
         container.dataset.isOpen = "true";
 
-        if (container.dataset.dockActive === "true" && imgEl.src && imgEl.src.includes(imgPath.split('/').pop())) {
-
-             return;
+        if (container.dataset.dockActive === "true" && imgEl.src.endsWith(project.image.split('/').pop())) {
+            const swapTl = gsap.timeline();
+            const infoEls = ["#project-view-title", "#project-view-subtitle", "#project-view-desc",
+                             "#project-view-apprentissages", "#project-view-resultats",
+                             "#project-view-preuves", "#project-view-autoevaluation"];
+            swapTl
+                .to([imgEl, ...infoEls], { opacity: 0, duration: 0.3, y: 15 })
+                .call(() => {
+                    imgEl.src = project.image;
+                    renderProjectDetails(project);
+                })
+                .to([imgEl, ...infoEls], { opacity: 1, duration: 0.3, y: 0 });
+            return;
         }
 
         if (container.dataset.dockActive === "true") {
-
             const swapTl = gsap.timeline();
-            swapTl.to([imgEl, titleEl, descEl], { opacity: 0, duration: 0.3, y: 15 })
-              .call(() => {
-                  imgEl.src = imgPath;
-                  titleEl.textContent = titleText;
-                  if (descEl) descEl.textContent = descriptionText;
-              })
-              .to([imgEl, titleEl, descEl], { opacity: 1, duration: 0.3, y: 0 });
+            const infoEls = ["#project-view-title", "#project-view-subtitle", "#project-view-desc",
+                             "#project-view-apprentissages", "#project-view-resultats",
+                             "#project-view-preuves", "#project-view-autoevaluation"];
+            swapTl
+                .to([imgEl, ...infoEls], { opacity: 0, duration: 0.3, y: 15 })
+                .call(() => {
+                    imgEl.src = project.image;
+                    renderProjectDetails(project);
+                })
+                .to([imgEl, ...infoEls], { opacity: 1, duration: 0.3, y: 0 });
             return;
         }
 
         container.dataset.dockActive = "true";
-        imgEl.src = imgPath;
-        titleEl.textContent = titleText;
-        if (descEl) descEl.textContent = descriptionText;
+        imgEl.src = project.image;
+        renderProjectDetails(project);
 
         tl.to(["#hero-name", ".bio-section"], {
             y: "-15vh",
@@ -182,9 +220,7 @@ export async function initCards() {
     });
 
     function render() {
-
         if (window.preloaderFinished) {
-
             if (!window.isProjectOpen) {
                 let currentSpeed = baseSpeed;
 
