@@ -42,10 +42,10 @@
 }
 .card:hover {
     transform: translateY(-2vh);
-    filter: brightness(70%);
 }
 .card:hover img {
     transform: scale(1.05);
+    filter: brightness(70%);
 }
 .card:hover .card-content {
     transform: translateY(0);
