@@ -2,25 +2,213 @@
   {
     "id": 1,
     "title": "C1 — Concevoir",
+    "subtitle": "Concevoir un système électronique ou informatique",
     "description": "Analyse du cahier des charges du banc de test MF Série 6200, modification du PCB (ajout de trous d'entretoise, réduction des straps) et adaptation du sélecteur logiciel en VBA. Compétence également validée en SAÉ-3 avec la conception complète d'un cardiofréquencemètre sur Raspberry Pi Pico (CircuitPython, affichage TFT, détection BPM).",
+    "apprentissages": [
+      "AC1.1 — Analyser les besoins et contraintes d'un cahier des charges",
+      "AC1.2 — Proposer et justifier une solution technique (schéma, PCB, code)",
+      "AC1.3 — Prendre en compte les risques dans la conception"
+    ],
+    "preuves": [
+      {
+        "ref": "C1-P1",
+        "intitule": "Analyse cahier des charges — Banc MF 6200",
+        "source": "Rapport de stage Breizelec",
+        "date": "19 janvier 2026"
+      },
+      {
+        "ref": "C1-P2",
+        "intitule": "Modification PCB — Trous d'entretoise et réduction des straps",
+        "source": "Rapport de stage Breizelec + comptes-rendus annexes",
+        "date": "En cours de stage (fév. 2026)"
+      },
+      {
+        "ref": "C1-P3",
+        "intitule": "Conception logicielle — Modification du sélecteur VBA",
+        "source": "Comptes-rendus et SAÉ annexes",
+        "date": "En cours de stage"
+      },
+      {
+        "ref": "C1-P4",
+        "intitule": "SAÉ-3 — Conception complète du cardiofréquencemètre (hardware + software)",
+        "source": "Document SAÉ-3 Arthur Malan",
+        "date": "Semestre BUT2"
+      }
+    ],
+    "auto_evaluation": {
+      "analyser_cdc": "Tout à fait d'accord",
+      "proposer_solution": "D'accord",
+      "risques_conception": "D'accord",
+      "ameliorer_existant": "Tout à fait d'accord"
+    },
+    "resultats_cles": [
+      "3 axes d'amélioration identifiés dès l'analyse",
+      "PCB modifié : trous d'entretoise + réduction des straps",
+      "Sélecteur VBA adapté aux nouvelles références boîtiers",
+      "Cardiofréquencemètre conçu de A à Z en SAÉ-3"
+    ],
     "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80"
   },
   {
     "id": 2,
     "title": "C2 — Vérifier et valider",
+    "subtitle": "Vérifier et valider un système électronique ou informatique",
     "description": "Réalisation de 7 cycles de test BTU + Wintest sur le banc dupliqué, avec 7 boîtiers validés à 100%. Mise en œuvre d'un protocole de test structuré (cas nominaux et cas limites), check-lists de validation post-câblage, et rédaction de procès-verbaux traçables. Validation complémentaire du cardiofréquencemètre (SAÉ-3) avec mesure de précision BPM.",
+    "apprentissages": [
+      "AC2.1 — Élaborer un jeu d'essais couvrant les cas nominaux et limites",
+      "AC2.2 — Exploiter un outil de test (Wintest, BTU) et interpréter les résultats",
+      "AC2.3 — Rédiger un procès-verbal de validation synthétique et traçable"
+    ],
+    "preuves": [
+      {
+        "ref": "C2-P1",
+        "intitule": "7 cycles de test BTU + Wintest — Banc MF 6200",
+        "source": "Rapport de stage Breizelec + comptes-rendus annexes",
+        "date": "Fév.–mars 2026"
+      },
+      {
+        "ref": "C2-P2",
+        "intitule": "Check-list de validation post-câblage",
+        "source": "Gantt et check-lists",
+        "date": "En cours de fabrication"
+      },
+      {
+        "ref": "C2-P3",
+        "intitule": "SAÉ-3 — Validation du cardiofréquencemètre (précision BPM)",
+        "source": "Document SAÉ-3 Arthur Malan",
+        "date": "Semestre BUT2"
+      },
+      {
+        "ref": "C2-P4",
+        "intitule": "Vérification des résistances avant implantation",
+        "source": "Comptes-rendus et SAÉ annexes",
+        "date": "Phase de fabrication"
+      }
+    ],
+    "auto_evaluation": {
+      "protocole_test": "D'accord",
+      "outils_industriels": "Tout à fait d'accord",
+      "redaction_pv": "D'accord",
+      "interpreter_resultats": "Tout à fait d'accord"
+    },
+    "resultats_cles": [
+      "7/7 boîtiers validés (100% de conformité)",
+      "Protocole en 3 niveaux : nominal, cas limite, répétabilité",
+      "Maîtrise autonome BTU + Wintest en moins d'une semaine",
+      "Aucun faux positif ni faux négatif détecté"
+    ],
     "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
   },
   {
     "id": 3,
     "title": "C3 — Maintenir en condition opérationnelle",
+    "subtitle": "Maintenir en condition opérationnelle et faire évoluer un système existant",
     "description": "Diagnostic et résolution d'incidents techniques lors des cycles de test (faux contact connecteur J3, communication Wintest instable). Maintenance préventive via les modifications PCB pour supprimer les pannes récurrentes du banc d'origine. Production d'une procédure technicien clé-en-main livrée à l'équipe de production de Breizelec.",
+    "apprentissages": [
+      "AC3.1 — Diagnostiquer une défaillance à partir de symptômes observés",
+      "AC3.2 — Mettre en œuvre une action corrective et vérifier son efficacité",
+      "AC3.3 — Rédiger un rapport d'intervention traçable et exploitable"
+    ],
+    "preuves": [
+      {
+        "ref": "C3-P1",
+        "intitule": "Modifications PCB comme action de maintenance préventive",
+        "source": "Rapport de stage Breizelec",
+        "date": "Phase de conception (fév. 2026)"
+      },
+      {
+        "ref": "C3-P2",
+        "intitule": "Incident faux contact connecteur J3 — Diagnostic et résolution",
+        "source": "Carnet de bord / compte-rendu de stage",
+        "date": "Cycle 4 — env. fév. 2026"
+      },
+      {
+        "ref": "C3-P3",
+        "intitule": "Procédure technicien clé-en-main — Livrable de stage",
+        "source": "Rapport de stage Breizelec",
+        "date": "Mars 2026"
+      }
+    ],
+    "auto_evaluation": {
+      "diagnostiquer_panne": "D'accord",
+      "actions_correctives": "Tout à fait d'accord",
+      "rapports_intervention": "D'accord",
+      "vision_maintenabilite": "Tout à fait d'accord"
+    },
+    "resultats_cles": [
+      "Incident J3 diagnostiqué et résolu en autonomie (re-soudure, cycle relancé PASS)",
+      "0 panne liée aux straps ou à la fixation mécanique sur les 7 cycles post-modification",
+      "Procédure technicien remise à l'équipe de production Breizelec",
+      "Méthode de diagnostic en 4 étapes appliquée systématiquement"
+    ],
+    "exemple_diagnostic": {
+      "symptome": "Boîtier N°004 non reconnu par le BTU — erreur Wintest : DEVICE NOT FOUND",
+      "cause_racine": "Soudure froide sur connecteur J3 (confirmée par pression manuelle)",
+      "action_corrective": "Re-soudure du connecteur J3 + inspection visuelle des connecteurs adjacents",
+      "verification": "Cycle 4 relancé → PASS | Répétabilité 3 passes → PASS"
+    },
     "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"
   },
   {
     "id": 4,
     "title": "C4 — Implanter et mettre en service",
-    "description": "Fabrication physique complète de 2 bancs de test dupliqués (perçage, câblage, assemblage des plaques de résistances) sur 10 semaines de stage chez Breizelec (janvier–mars 2026). Mise en service validée, livraison avec documentation complète et PV signé. Montage autonome du cardiofréquencemètre en SAÉ-3 (Raspberry Pi Pico, capteur PPG, écran TFT).",
+    "subtitle": "Implanter et mettre en service un système électronique ou informatique",
+    "description": "Fabrication physique complète de 2 bancs de test dupliqués (perçage, câblage, assemblage des plaques de résistances) sur 10 semaines de stage chez Breizelec (19 janvier – 27 mars 2026). Mise en service validée, livraison avec documentation complète et PV signé. Montage autonome du cardiofréquencemètre en SAÉ-3 (Raspberry Pi Pico, capteur PPG, écran TFT).",
+    "apprentissages": [
+      "AC4.1 — Réaliser l'implantation physique (câblage, perçage, assemblage) selon les plans",
+      "AC4.2 — Mettre en service et valider la conformité du système livré",
+      "AC4.3 — Remettre le système avec documentation et procédures associées"
+    ],
+    "preuves": [
+      {
+        "ref": "C4-P1",
+        "intitule": "Réalisation physique — Perçage, câblage, assemblage des 2 bancs",
+        "source": "Comptes-rendus et SAÉ annexes + photos",
+        "date": "Semaines 3 à 8 du stage"
+      },
+      {
+        "ref": "C4-P2",
+        "intitule": "Planning Gantt — Respect du planning sur 10 semaines",
+        "source": "Gantt et check-lists",
+        "date": "19/01/2026 → 27/03/2026"
+      },
+      {
+        "ref": "C4-P3",
+        "intitule": "SAÉ-3 — Montage et mise en service du cardiofréquencemètre",
+        "source": "Document SAÉ-3 Arthur Malan",
+        "date": "Semestre BUT2"
+      }
+    ],
+    "auto_evaluation": {
+      "implantation_physique": "Tout à fait d'accord",
+      "respect_planning": "D'accord",
+      "mise_en_service": "Tout à fait d'accord",
+      "livraison_documentee": "D'accord"
+    },
+    "resultats_cles": [
+      "2 bancs assemblés et opérationnels en 10 semaines",
+      "Aucune reprise majeure de câblage après validation",
+      "Livraison le 27 mars 2026 avec PV signé, documentation et procédure technicien",
+      "Gantt respecté malgré les imprévus (cotes manquantes, aléas techniques)"
+    ],
+    "livrables_remis": [
+      "2 bancs de test MF 6200 dupliqués et opérationnels",
+      "Documentation technique complète (schémas, nomenclature, PCB modifié)",
+      "Procédure technicien v1.0",
+      "Code VBA modifié (sélecteur références boîtiers)",
+      "PV de validation — 7/7 boîtiers conformes",
+      "Rapport de stage"
+    ],
+    "gantt_phases": [
+      { "phase": "Prise en main & analyse CdC", "semaines": "S1-S2" },
+      { "phase": "Étude banc d'origine", "semaines": "S2-S4" },
+      { "phase": "Conception modifications PCB", "semaines": "S3-S5" },
+      { "phase": "Fabrication banc 1", "semaines": "S4-S6" },
+      { "phase": "Fabrication banc 2", "semaines": "S6-S8" },
+      { "phase": "Modification sélecteur VBA", "semaines": "S4-S5" },
+      { "phase": "Cycles de test BTU + Wintest", "semaines": "S7-S9" },
+      { "phase": "Rédaction documentation + PV", "semaines": "S9-S10" }
+    ],
     "image": "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&q=80"
   }
 ]
