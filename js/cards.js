@@ -73,6 +73,7 @@ export async function initCards() {
         window.isProjectOpen = true;
         if (window.lenis) window.lenis.stop();
         document.body.classList.add('project-open');
+        ScrollTrigger.getAll().forEach(st => st.disable(false, false));
 
         const projectId = parseInt(card.dataset.projectId, 10);
         const project = projects.find(p => p.id === projectId);
@@ -182,8 +183,12 @@ export async function initCards() {
 
     document.getElementById("close-project").addEventListener("click", () => {
         window.isProjectOpen = false;
-        if (window.lenis) window.lenis.start();
         document.body.classList.remove('project-open');
+        ScrollTrigger.getAll().forEach(st => st.enable(false, false));
+        if (window.lenis) {
+            window.lenis.start();
+            window.lenis.scrollTo(window.innerHeight * 4.0, { immediate: true });
+        }
         container.dataset.dockActive = "false";
         const allCards = Array.from(container.querySelectorAll(".card"));
 

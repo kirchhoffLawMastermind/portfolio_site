@@ -46,6 +46,14 @@ body.project-open {
     overflow: hidden;
 }
 
+body.project-open > *:not(#project-view) {
+    pointer-events: none;
+}
+
+body.project-open #project-view {
+    pointer-events: auto;
+}
+
 .project-info-header {
     margin-bottom: 1.5vh;
 }
