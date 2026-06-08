@@ -47,7 +47,7 @@
       "Sélecteur VBA adapté aux nouvelles références boîtiers",
       "Cardiofréquencemètre conçu de A à Z en SAÉ-3"
     ],
-    "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80"
+    "image": "assets/img/IMG_C1_CONCEVOIR.jpg"
   },
   {
     "id": 2,
@@ -97,7 +97,7 @@
       "Maîtrise autonome BTU + Wintest en moins d'une semaine",
       "Aucun faux positif ni faux négatif détecté"
     ],
-    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
+    "image": "assets/img/IMG_C2_Vérifier.jpg"
   },
   {
     "id": 3,
@@ -147,7 +147,7 @@
       "action_corrective": "Re-soudure du connecteur J3 + inspection visuelle des connecteurs adjacents",
       "verification": "Cycle 4 relancé → PASS | Répétabilité 3 passes → PASS"
     },
-    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"
+    "image": "assets/img/IMG_C3_Maintenir.jpg"
   },
   {
     "id": 4,
@@ -209,6 +209,6 @@
       { "phase": "Cycles de test BTU + Wintest", "semaines": "S7-S9" },
       { "phase": "Rédaction documentation + PV", "semaines": "S9-S10" }
     ],
-    "image": "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&q=80"
+    "image": "assets/img/IMG_C4_Implanter.jpg"
   }
 ]
