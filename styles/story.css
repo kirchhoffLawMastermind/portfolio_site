@@ -8,6 +8,7 @@
     display: block;
     will-change: width, top, transform, opacity;
     pointer-events: none;
+    border-radius: 0 50px;
     backface-visibility: hidden;
     opacity: 0; /* caché dès le CSS pour éviter tout flash au chargement (GSAP le révèle) */
 }
