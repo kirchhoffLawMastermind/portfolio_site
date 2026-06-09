@@ -5,76 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bitmap Generator — MCU Libraries</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0f14;
-    --panel: #13161d;
-    --border: #1e2330;
-    --border2: #2a3045;
-    --accent: #00e5a0;
-    --accent2: #0066ff;
-    --text: #e8eaf0;
-    --text2: #8892a4;
-    --text3: #4a5568;
-    --danger: #ff4757;
-    --warn: #ffa502;
-    --grid-cell: 14px;
-    --radius: 8px;
+    --bg: #0a0a0a;
+    --panel: #111111;
+    --panel2: #161616;
+    --border: #222222;
+    --border2: #2e2e2e;
+    --ink: #f0ede8;
+    --ink2: #a8a49e;
+    --ink3: #555250;
+    --accent: #e8632a;
+    --accent2: #c44e1e;
+    --success: #4caf72;
+    --radius: 0px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
-  code, .mono { font-family: 'JetBrains Mono', monospace; }
+  code, .mono { font-family: 'Space Mono', monospace; }
 
   /* HEADER */
   header {
     border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 56px;
+    padding: 0 1.5rem;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--panel);
+    color: var(--ink);
   }
   .logo {
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 10px;
   }
   .logo-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
+    width: 8px; height: 8px;
     background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
   }
   .badge {
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    background: rgba(0,229,160,0.1);
-    color: var(--accent);
-    border: 1px solid rgba(0,229,160,0.25);
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
+    font-size: 9px;
+    font-family: 'Space Mono', monospace;
+    color: var(--ink3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--border2);
+    padding: 3px 10px;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink2);
   }
 
   /* LAYOUT */
   .app {
     display: grid;
-    grid-template-columns: 300px 1fr 320px;
+    grid-template-columns: 280px 1fr 300px;
     flex: 1;
     min-height: 0;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 52px);
     overflow: hidden;
   }
 
@@ -83,20 +85,22 @@
     border-right: 1px solid var(--border);
     background: var(--panel);
     overflow-y: auto;
-    padding: 1.25rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
   }
   .panel:last-child { border-right: none; border-left: 1px solid var(--border); }
 
   .section-label {
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 1.5px;
-    color: var(--text3);
+    font-size: 9px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 2px;
+    color: var(--accent);
     text-transform: uppercase;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
   }
 
   /* CANVAS AREA */
@@ -106,7 +110,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 1.5rem;
+    padding: 1.25rem;
     gap: 1rem;
     overflow: auto;
   }
@@ -114,12 +118,12 @@
   /* TOOLBAR */
   .toolbar {
     display: flex;
-    gap: 6px;
+    gap: 2px;
     align-items: center;
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 6px;
+    border-radius: 0;
+    padding: 4px;
     flex-wrap: wrap;
     width: 100%;
     max-width: 800px;
@@ -127,30 +131,30 @@
   .tool-btn {
     background: transparent;
     border: 1px solid transparent;
-    color: var(--text2);
-    padding: 5px 10px;
-    border-radius: 5px;
+    color: var(--ink2);
+    padding: 4px 9px;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    transition: all 0.15s;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    transition: all 0.1s;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
   }
-  .tool-btn:hover { background: var(--border); color: var(--text); }
+  .tool-btn:hover { background: var(--panel2); color: var(--ink); border-color: var(--border2); }
   .tool-btn.active {
-    background: rgba(0,229,160,0.12);
-    border-color: rgba(0,229,160,0.3);
-    color: var(--accent);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
   }
-  .tool-sep { width: 1px; height: 20px; background: var(--border2); margin: 0 2px; }
+  .tool-sep { width: 1px; height: 18px; background: var(--border2); margin: 0 3px; }
 
   /* GRID CANVAS */
   .grid-wrapper {
     position: relative;
     border: 1px solid var(--border2);
-    border-radius: var(--radius);
+    border-radius: 0;
     overflow: hidden;
     cursor: crosshair;
     flex-shrink: 0;
@@ -162,162 +166,169 @@
 
   /* FORM CONTROLS */
   select, input[type="number"], input[type="text"] {
-    background: var(--bg);
+    background: var(--panel2);
     border: 1px solid var(--border2);
-    color: var(--text);
-    padding: 7px 10px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    padding: 5px 8px;
+    border-radius: 0;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
     width: 100%;
-    transition: border 0.15s;
+    transition: border 0.1s;
   }
   select:focus, input:focus { outline: none; border-color: var(--accent); }
-  label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 4px; }
+  label { font-size: 10px; color: var(--ink2); display: block; margin-bottom: 3px; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; }
 
-  .row { display: flex; gap: 8px; align-items: flex-start; }
+  .row { display: flex; gap: 6px; align-items: flex-start; }
   .row > * { flex: 1; }
 
   /* LIBRARY CARDS */
   .lib-card {
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 8px 10px;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.1s;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13px;
+    gap: 8px;
+    font-size: 12px;
+    background: var(--panel2);
   }
-  .lib-card:hover { border-color: var(--border2); background: var(--bg); }
+  .lib-card:hover { border-color: var(--border2); background: #1a1a1a; }
   .lib-card.selected {
     border-color: var(--accent);
-    background: rgba(0,229,160,0.06);
+    background: rgba(232, 99, 42, 0.08);
+    color: var(--ink);
   }
+  .lib-card.selected .lib-name { color: var(--ink); }
+  .lib-card.selected .lib-sub { color: var(--ink3); }
   .lib-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--text3);
+    width: 6px; height: 6px;
+    background: var(--border2);
     flex-shrink: 0;
-    transition: background 0.15s;
+    transition: background 0.1s;
   }
-  .lib-card.selected .lib-dot { background: var(--accent); box-shadow: 0 0 5px var(--accent); }
-  .lib-name { font-weight: 600; color: var(--text); }
-  .lib-sub { font-size: 11px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
+  .lib-card.selected .lib-dot { background: var(--accent); }
+  .lib-name { font-weight: 500; color: var(--ink); font-size: 12px; }
+  .lib-sub { font-size: 10px; color: var(--ink3); font-family: 'Space Mono', monospace; }
 
   /* COLOR PICKER */
   .color-wheel-wrap {
     position: relative;
     width: 100%;
     aspect-ratio: 1;
-    max-width: 240px;
+    max-width: 220px;
     margin: 0 auto;
   }
-  #colorWheel { width: 100%; height: 100%; cursor: crosshair; border-radius: 50%; }
+  #colorWheel { width: 100%; height: 100%; cursor: crosshair; }
   .brightness-slider {
     width: 100%;
-    height: 18px;
-    border-radius: 9px;
-    border: none;
+    height: 14px;
+    border-radius: 0;
+    border: 1px solid var(--border);
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 6px;
     outline: none;
   }
   .color-preview-row {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
-    margin-top: 8px;
+    margin-top: 6px;
   }
   .color-swatch {
-    width: 36px; height: 36px;
-    border-radius: 6px;
+    width: 32px; height: 32px;
+    border-radius: 0;
     border: 1px solid var(--border2);
     flex-shrink: 0;
   }
   .hex-input {
     flex: 1;
-    background: var(--bg);
+    background: var(--panel2);
     border: 1px solid var(--border2);
-    color: var(--text);
-    padding: 7px 10px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    padding: 5px 8px;
+    border-radius: 0;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
   }
   .hex-input:focus { outline: none; border-color: var(--accent); }
   .palette-row {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     flex-wrap: wrap;
   }
   .pal-color {
-    width: 24px; height: 24px;
-    border-radius: 4px;
+    width: 22px; height: 22px;
+    border-radius: 0;
     cursor: pointer;
-    border: 1px solid var(--border2);
+    border: 1px solid var(--border);
     transition: transform 0.1s;
   }
-  .pal-color:hover { transform: scale(1.2); }
-  .pal-color.active-color { border: 2px solid white; }
+  .pal-color:hover { transform: scale(1.15); border-color: var(--ink2); }
+  .pal-color.active-color { border: 2px solid var(--ink); }
 
   /* CODE OUTPUT */
   .code-block {
-    background: var(--bg);
+    background: #060606;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #6fc;
+    border-radius: 0;
+    padding: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #7ec8a0;
     line-height: 1.6;
     white-space: pre-wrap;
     word-break: break-all;
-    max-height: 220px;
+    max-height: 200px;
     overflow-y: auto;
     flex-shrink: 0;
   }
 
   /* BUTTONS */
   .btn {
-    padding: 9px 16px;
-    border-radius: var(--radius);
-    border: none;
+    padding: 8px 14px;
+    border-radius: 0;
+    border: 1px solid var(--border2);
     cursor: pointer;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
     transition: all 0.15s;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     width: 100%;
+    text-transform: uppercase;
   }
   .btn-primary {
     background: var(--accent);
-    color: #000;
+    color: #fff;
+    border-color: var(--accent);
   }
-  .btn-primary:hover { background: #00ffb3; }
+  .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
   .btn-secondary {
     background: transparent;
-    border: 1px solid var(--border2);
-    color: var(--text);
+    border-color: var(--border2);
+    color: var(--ink2);
   }
-  .btn-secondary:hover { background: var(--border); }
+  .btn-secondary:hover { border-color: var(--ink2); color: var(--ink); background: var(--panel2); }
   .btn-danger {
     background: transparent;
-    border: 1px solid rgba(255,71,87,0.3);
-    color: var(--danger);
+    border-color: var(--border);
+    color: var(--ink3);
   }
-  .btn-danger:hover { background: rgba(255,71,87,0.1); }
+  .btn-danger:hover { border-color: #c0392b; color: #c0392b; }
 
   /* PREVIEW */
   .preview-wrap {
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 12px;
-    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 10px;
+    background: var(--panel);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -329,141 +340,130 @@
     align-items: flex-end;
   }
   .screen-preview {
-    background: repeating-conic-gradient(#1a1e28 0% 25%, #14171f 0% 50%) 0 0 / 8px 8px;
-    border: 1px solid var(--border2);
-    border-radius: 4px;
+    background: repeating-conic-gradient(#1a1a1a 0% 25%, #111111 0% 50%) 0 0 / 8px 8px;
+    border: 1px solid var(--border);
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
   }
   .screen-label {
     font-size: 9px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text3);
+    font-family: 'Space Mono', monospace;
+    color: var(--ink3);
     text-align: center;
-    margin-top: 4px;
+    margin-top: 3px;
   }
 
   /* SCROLLBAR */
   ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: var(--panel); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 0; }
 
   /* SIZE PRESETS */
   .preset-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    gap: 4px;
   }
   .preset-btn {
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    color: var(--text2);
-    padding: 6px 8px;
-    border-radius: 6px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--ink2);
+    padding: 5px 6px;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
     text-align: center;
-    transition: all 0.15s;
+    transition: all 0.1s;
   }
-  .preset-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.05); }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,99,42,0.06); }
 
-  .divider { height: 1px; background: var(--border); margin: 0 -1.25rem; }
+  .divider { height: 1px; background: var(--border); margin: 0 -1rem; }
 
   .stat-row {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    color: var(--text2);
-    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink2);
+    font-family: 'Space Mono', monospace;
   }
-  .stat-val { color: var(--accent); }
+  .stat-val { color: var(--accent); font-weight: 700; }
 
   /* IMAGE IMPORT */
   .import-drop {
-    border: 1.5px dashed var(--border2);
-    border-radius: var(--radius);
-    padding: 18px 12px;
+    border: 1px dashed var(--border2);
+    border-radius: 0;
+    padding: 16px 10px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
     position: relative;
-    background: var(--bg);
+    background: var(--panel2);
   }
   .import-drop:hover, .import-drop.drag-over {
     border-color: var(--accent);
-    background: rgba(0,229,160,0.05);
+    background: rgba(232,99,42,0.05);
   }
   .import-drop input[type="file"] {
     position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
   }
-  .import-drop .drop-icon { font-size: 24px; margin-bottom: 6px; }
-  .import-drop .drop-text { font-size: 12px; color: var(--text2); }
-  .import-drop .drop-hint { font-size: 10px; color: var(--text3); margin-top: 3px; font-family: 'JetBrains Mono', monospace; }
+  .import-drop .drop-icon { font-size: 20px; margin-bottom: 5px; }
+  .import-drop .drop-text { font-size: 11px; color: var(--ink2); font-family: 'Space Mono', monospace; }
+  .import-drop .drop-hint { font-size: 9px; color: var(--ink3); margin-top: 2px; font-family: 'Space Mono', monospace; }
 
   .import-preview {
     display: flex;
     gap: 8px;
     align-items: flex-start;
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 10px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 8px;
   }
   .import-thumb {
-    width: 64px; height: 64px;
+    width: 56px; height: 56px;
     object-fit: contain;
-    border-radius: 4px;
-    border: 1px solid var(--border2);
-    background: repeating-conic-gradient(#1a1e28 0% 25%, #14171f 0% 50%) 0 0 / 8px 8px;
+    border: 1px solid var(--border);
+    background: repeating-conic-gradient(#1a1a1a 0% 25%, #111111 0% 50%) 0 0 / 6px 6px;
     flex-shrink: 0;
     image-rendering: pixelated;
   }
-  .import-info { flex: 1; font-size: 11px; color: var(--text2); font-family: 'JetBrains Mono', monospace; line-height: 1.7; }
+  .import-info { flex: 1; font-size: 10px; color: var(--ink2); font-family: 'Space Mono', monospace; line-height: 1.7; }
 
-  .conversion-opts {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .conversion-opts { display: flex; flex-direction: column; gap: 8px; }
   .opt-row { display: flex; flex-direction: column; gap: 3px; }
 
   /* MODAL */
   .modal-bg {
     display: none;
     position: fixed; inset: 0; z-index: 100;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.8);
     align-items: center; justify-content: center;
   }
   .modal-bg.open { display: flex; }
   .modal {
     background: var(--panel);
     border: 1px solid var(--border2);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 0;
+    padding: 1.25rem;
     width: 480px;
     max-width: 95vw;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-shadow: 4px 4px 0 var(--accent);
   }
-  .modal-title { font-size: 16px; font-weight: 600; }
-  .modal-preview-row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
+  .modal-title { font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 2px; color: var(--ink); }
+  .modal-preview-row { display: flex; gap: 12px; align-items: flex-start; }
   .modal-canvas-wrap {
     border: 1px solid var(--border2);
-    border-radius: 6px;
     overflow: hidden;
-    background: repeating-conic-gradient(#1a1e28 0% 25%, #14171f 0% 50%) 0 0 / 8px 8px;
+    background: repeating-conic-gradient(#1a1a1a 0% 25%, #111111 0% 50%) 0 0 / 8px 8px;
     flex-shrink: 0;
   }
   #modalPreviewCanvas { display: block; image-rendering: pixelated; }
   .modal-controls { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-  .modal-foot { display: flex; gap: 8px; }
+  .modal-foot { display: flex; gap: 6px; }
   .modal-foot .btn { flex: 1; }
 </style>
 </head>
@@ -547,7 +547,6 @@
       <div class="section-label">Importer une image</div>
       <div class="import-drop" id="importDrop">
         <input type="file" id="importFile" accept="image/*" onchange="handleImageFile(this.files[0])">
-        <div class="drop-icon">🖼</div>
         <div class="drop-text">Glisser une image ou cliquer</div>
         <div class="drop-hint">PNG · JPG · GIF · WebP · BMP · SVG</div>
       </div>
@@ -556,7 +555,7 @@
           <img id="importThumb" class="import-thumb" src="" alt="">
           <div class="import-info" id="importInfo"></div>
         </div>
-        <button class="btn btn-primary" style="margin-top:8px" onclick="openImportModal()">⚙ Configurer la conversion</button>
+        <button class="btn btn-primary" style="margin-top:8px" onclick="openImportModal()">Configurer la conversion</button>
       </div>
     </div>
 
@@ -565,13 +564,13 @@
   <!-- IMPORT MODAL -->
   <div class="modal-bg" id="importModal">
     <div class="modal">
-      <div class="modal-title">⚙ Options de conversion</div>
+      <div class="modal-title">Options de conversion</div>
       <div class="modal-preview-row">
         <div>
           <div class="modal-canvas-wrap" style="width:128px;height:128px;display:flex;align-items:center;justify-content:center">
             <canvas id="modalPreviewCanvas" width="128" height="128"></canvas>
           </div>
-          <div style="font-size:10px;color:var(--text3);text-align:center;margin-top:4px;font-family:'JetBrains Mono',monospace">aperçu converti</div>
+          <div style="font-size:10px;color:var(--ink3);text-align:center;margin-top:4px;font-family:'Space Mono',monospace">aperçu converti</div>
         </div>
         <div class="modal-controls">
           <div class="opt-row">
@@ -618,7 +617,7 @@
               <input type="range" id="convBright" min="-100" max="100" value="0" step="1" oninput="document.getElementById('brightVal').textContent=this.value;updateModalPreview()" style="flex:1">
               <input type="range" id="convContrast" min="-100" max="100" value="0" step="1" oninput="document.getElementById('contrastVal').textContent=this.value;updateModalPreview()" style="flex:1">
             </div>
-            <div style="display:flex;gap:8px;font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">
+            <div style="display:flex;gap:8px;font-size:10px;color:var(--ink3);font-family:'Space Mono',monospace">
               <span style="flex:1;text-align:center">luminosité: <span id="brightVal">0</span></span>
               <span style="flex:1;text-align:center">contraste: <span id="contrastVal">0</span></span>
             </div>
@@ -627,7 +626,7 @@
       </div>
       <div class="modal-foot">
         <button class="btn btn-secondary" onclick="closeImportModal()">Annuler</button>
-        <button class="btn btn-primary" onclick="applyImport()">✓ Appliquer au canevas</button>
+        <button class="btn btn-primary" onclick="applyImport()">Appliquer au canevas</button>
       </div>
     </div>
   </div>
@@ -636,20 +635,21 @@
   <div class="canvas-area">
 
     <div class="toolbar">
-      <button class="tool-btn active" id="toolPen" onclick="setTool('pen')">✏️ Crayon</button>
-      <button class="tool-btn" id="toolErase" onclick="setTool('erase')">⬜ Gomme</button>
-      <button class="tool-btn" id="toolFill" onclick="setTool('fill')">🪣 Remplir</button>
-      <button class="tool-btn" id="toolLine" onclick="setTool('line')">╱ Ligne</button>
-      <button class="tool-btn" id="toolRect" onclick="setTool('rect')">▭ Rectangle</button>
-      <button class="tool-btn" id="toolCircle" onclick="setTool('circle')">◯ Cercle</button>
+      <button class="tool-btn active" id="toolPen" onclick="setTool('pen')">Crayon</button>
+      <button class="tool-btn" id="toolErase" onclick="setTool('erase')">Gomme</button>
+      <button class="tool-btn" id="toolFill" onclick="setTool('fill')">Remplir</button>
+      <button class="tool-btn" id="toolLine" onclick="setTool('line')">Ligne</button>
+      <button class="tool-btn" id="toolRect" onclick="setTool('rect')">Rectangle</button>
+      <button class="tool-btn" id="toolCircle" onclick="setTool('circle')">Cercle</button>
+      <button class="tool-btn" id="toolGradient" onclick="setTool('gradient')">Dégradé</button>
       <div class="tool-sep"></div>
-      <button class="tool-btn" onclick="invertColors()" title="Inverser">⇄ Inverser</button>
+      <button class="tool-btn" onclick="invertColors()" title="Inverser">Inverser</button>
       <button class="tool-btn" onclick="shiftLeft()">← Décaler</button>
       <button class="tool-btn" onclick="shiftRight()">→ Décaler</button>
       <button class="tool-btn" onclick="shiftUp()">↑ Décaler</button>
       <button class="tool-btn" onclick="shiftDown()">↓ Décaler</button>
       <div class="tool-sep"></div>
-      <button class="tool-btn" id="toggleGrid" onclick="toggleGridLines()" title="Grille">⊞ Grille</button>
+      <button class="tool-btn" id="toggleGrid" onclick="toggleGridLines()" title="Grille">Grille</button>
       <input type="range" id="zoomSlider" min="4" max="24" value="14" step="1" style="width:80px;cursor:pointer" title="Zoom" oninput="setZoom(this.value)">
     </div>
 
@@ -663,7 +663,7 @@
           <div class="section-label" style="margin-bottom:0">Prévisualisation sur écrans</div>
           <div style="display:flex;align-items:center;gap:6px">
             <input type="number" id="prevCustomW" placeholder="W" min="1" max="1000" style="width:62px;padding:4px 6px;font-size:11px">
-            <span style="font-size:11px;color:var(--text3)">×</span>
+            <span style="font-size:11px;color:var(--ink3)">×</span>
             <input type="number" id="prevCustomH" placeholder="H" min="1" max="1000" style="width:62px;padding:4px 6px;font-size:11px">
             <button class="tool-btn" style="padding:4px 8px;font-size:11px" onclick="addCustomScreen()">+ Ajouter</button>
           </div>
@@ -693,6 +693,33 @@
         <div class="section-label">Palette rapide</div>
         <div class="palette-row" id="paletteRow"></div>
       </div>
+
+      <div id="gradientControls" style="display:none;margin-top:10px">
+        <div class="section-label">Dégradé — couleur 2</div>
+        <div class="color-preview-row" style="margin-bottom:8px">
+          <div class="color-swatch" id="gradSwatch" style="background:#0000FF"></div>
+          <input type="text" class="hex-input" id="gradHexInput" value="#0000FF" placeholder="#RRGGBB" oninput="updateGradColor()">
+          <input type="color" id="gradNativePicker" style="width:36px;height:36px;border:none;background:none;cursor:pointer;padding:0;overflow:hidden" value="#0000FF" oninput="updateGradColorNative(this.value)" title="Couleur 2">
+        </div>
+        <div>
+          <label>Direction</label>
+          <select id="gradDir">
+            <option value="h">Horizontal (gauche → droite)</option>
+            <option value="v">Vertical (haut → bas)</option>
+            <option value="d1">Diagonal ↘</option>
+            <option value="d2">Diagonal ↗</option>
+            <option value="r">Radial (centre → bord)</option>
+          </select>
+        </div>
+        <div style="margin-top:6px">
+          <label>Appliquer à</label>
+          <select id="gradScope">
+            <option value="canvas">Tout le canevas</option>
+            <option value="drag">Zone glissée (clic + drag)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="margin-top:8px" onclick="applyGradientFull()">Appliquer sur le canevas</button>
+      </div>
     </div>
 
     <div class="divider"></div>
@@ -717,16 +744,16 @@
         <div id="exportCustomRow" style="display:none;margin-top:6px;display:none">
           <div style="display:flex;gap:6px;align-items:center">
             <input type="number" id="exportCustomW" placeholder="Largeur" min="1" max="10000" style="flex:1">
-            <span style="color:var(--text3);font-size:12px">×</span>
+            <span style="color:var(--ink3);font-size:12px">×</span>
             <input type="number" id="exportCustomH" placeholder="Hauteur" min="1" max="10000" style="flex:1">
           </div>
-          <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'JetBrains Mono',monospace">laisser vide pour auto-proportionnel</div>
+          <div style="font-size:10px;color:var(--ink3);margin-top:3px;font-family:'Space Mono',monospace">laisser vide pour auto-proportionnel</div>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="downloadBMP()">⬇ Télécharger PNG (transparent)</button>
-      <button class="btn btn-secondary" onclick="downloadHeader()">⬇ Télécharger fichier .h</button>
-      <button class="btn btn-secondary" onclick="copyCode()">⎘ Copier le code</button>
-      <button class="btn btn-danger" onclick="clearCanvas()">✕ Effacer tout</button>
+      <button class="btn btn-primary" onclick="downloadBMP()">Télécharger PNG</button>
+      <button class="btn btn-secondary" onclick="downloadHeader()">Télécharger .h</button>
+      <button class="btn btn-secondary" onclick="copyCode()">Copier le code</button>
+      <button class="btn btn-danger" onclick="clearCanvas()">Effacer tout</button>
     </div>
 
   </div>
@@ -826,6 +853,8 @@ function setTool(t) {
   document.querySelectorAll('.tool-btn[id^="tool"]').forEach(b => b.classList.remove('active'));
   const el = document.getElementById('tool' + t.charAt(0).toUpperCase() + t.slice(1));
   if (el) el.classList.add('active');
+  // Show/hide gradient controls
+  document.getElementById('gradientControls').style.display = t === 'gradient' ? 'block' : 'none';
 }
 
 function getCell(e) {
@@ -931,6 +960,7 @@ canvas.addEventListener('mousedown', e => {
   painting = true;
   const {x, y} = getCell(e);
   startX = x; startY = y;
+  if (tool === 'gradient') return;
   if (tool === 'pen' || tool === 'erase') paintCell(x, y);
   else if (tool === 'fill') {
     const target = pixels[y * W + x] ? {...pixels[y * W + x]} : null;
@@ -942,6 +972,33 @@ canvas.addEventListener('mousedown', e => {
 canvas.addEventListener('mousemove', e => {
   if (!painting) return;
   const {x, y} = getCell(e);
+  if (tool === 'gradient') {
+    previewPixels = [...pixels];
+    const c1 = hexToRgb(activeColor), c2 = gradColor2;
+    const dir = document.getElementById('gradDir').value;
+    const scope = document.getElementById('gradScope').value;
+    const minX = Math.min(startX, x), maxX = Math.max(startX, x);
+    const minY = Math.min(startY, y), maxY = Math.max(startY, y);
+    const rw = maxX - minX || 1, rh = maxY - minY || 1;
+    const px0 = scope === 'canvas' ? 0 : minX, py0 = scope === 'canvas' ? 0 : minY;
+    const px1 = scope === 'canvas' ? W - 1 : maxX, py1 = scope === 'canvas' ? H - 1 : maxY;
+    for (let py = py0; py <= py1; py++) {
+      for (let px = px0; px <= px1; px++) {
+        if (px < 0 || px >= W || py < 0 || py >= H) continue;
+        const nx = Math.max(0, Math.min(1, (px - minX) / rw));
+        const ny = Math.max(0, Math.min(1, (py - minY) / rh));
+        let t;
+        if (dir === 'h')       t = nx;
+        else if (dir === 'v')  t = ny;
+        else if (dir === 'd1') t = (nx + ny) / 2;
+        else if (dir === 'd2') t = (nx + (1 - ny)) / 2;
+        else                   t = Math.min(1, Math.sqrt((nx - 0.5) ** 2 + (ny - 0.5) ** 2) * 2);
+        previewPixels[py * W + px] = lerpColor(c1, c2, t);
+      }
+    }
+    redraw();
+    return;
+  }
   if (tool === 'pen' || tool === 'erase') { paintCell(x, y); redraw(); }
   else if (tool === 'line') { drawLinePrev(startX, startY, x, y); redraw(); }
   else if (tool === 'rect') { drawRectPrev(startX, startY, x, y); redraw(); }
@@ -950,6 +1007,7 @@ canvas.addEventListener('mousemove', e => {
 canvas.addEventListener('mouseup', e => {
   if (!painting) return;
   const {x, y} = getCell(e);
+  if (tool === 'gradient') { painting = false; if (previewPixels) { pixels = [...previewPixels]; previewPixels = null; } redraw(); return; }
   if (tool === 'line') { drawLinePrev(startX, startY, x, y); commitLine(); }
   else if (tool === 'rect') { drawRectPrev(startX, startY, x, y); pixels = [...previewPixels]; previewPixels = null; }
   else if (tool === 'circle') { drawCirclePrev(startX, startY, x, y); pixels = [...previewPixels]; previewPixels = null; }
@@ -1272,7 +1330,7 @@ function addCustomScreen() {
   // Auto scale so preview fits within ~200px
   const maxPx = 200;
   const scale = Math.min(1, maxPx / Math.max(cw, ch));
-  SCREENS.push({w:cw, h:ch, label:`${cw}×${ch} ✕`, scale, removable:true});
+  SCREENS.push({w:cw, h:ch, label:`${cw}×${ch} ×`, scale, removable:true});
   document.getElementById('prevCustomW').value = '';
   document.getElementById('prevCustomH').value = '';
   updatePreviews();
@@ -1379,8 +1437,8 @@ function copyCode() {
   navigator.clipboard.writeText(document.getElementById('codeOutput').textContent)
     .then(() => {
       const btn = document.querySelector('.btn-secondary');
-      btn.textContent = '✓ Copié !';
-      setTimeout(() => btn.textContent = '⎘ Copier le code', 1500);
+      btn.textContent = 'Copié !';
+      setTimeout(() => btn.textContent = 'Copier le code', 1500);
     });
 }
 
@@ -1586,6 +1644,60 @@ function applyImport() {
   pixels = converted;
   closeImportModal();
   redraw();
+}
+
+// === GRADIENT TOOL ===
+let gradColor2 = { r: 0, g: 0, b: 255, a: 1 };
+
+function updateGradColor() {
+  const hex = document.getElementById('gradHexInput').value.trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+  gradColor2 = hexToRgb(hex);
+  document.getElementById('gradSwatch').style.background = hex;
+  document.getElementById('gradNativePicker').value = hex;
+}
+
+function updateGradColorNative(hex) {
+  document.getElementById('gradHexInput').value = hex;
+  gradColor2 = hexToRgb(hex);
+  document.getElementById('gradSwatch').style.background = hex;
+}
+
+function lerpColor(c1, c2, t) {
+  return {
+    r: Math.round(c1.r + (c2.r - c1.r) * t),
+    g: Math.round(c1.g + (c2.g - c1.g) * t),
+    b: Math.round(c1.b + (c2.b - c1.b) * t),
+    a: 1
+  };
+}
+
+function applyGradientToRegion(x0, y0, x1, y1) {
+  const c1 = hexToRgb(activeColor);
+  const c2 = gradColor2;
+  const dir = document.getElementById('gradDir').value;
+  const minX = Math.min(x0, x1), maxX = Math.max(x0, x1);
+  const minY = Math.min(y0, y1), maxY = Math.max(y0, y1);
+  const rw = maxX - minX || 1, rh = maxY - minY || 1;
+
+  for (let y = minY; y <= maxY; y++) {
+    for (let x = minX; x <= maxX; x++) {
+      if (x < 0 || x >= W || y < 0 || y >= H) continue;
+      let t;
+      const nx = (x - minX) / rw, ny = (y - minY) / rh;
+      if (dir === 'h')       t = nx;
+      else if (dir === 'v')  t = ny;
+      else if (dir === 'd1') t = (nx + ny) / 2;
+      else if (dir === 'd2') t = (nx + (1 - ny)) / 2;
+      else /* radial */      t = Math.min(1, Math.sqrt((nx - 0.5) ** 2 + (ny - 0.5) ** 2) * 2);
+      pixels[y * W + x] = lerpColor(c1, c2, t);
+    }
+  }
+  redraw();
+}
+
+function applyGradientFull() {
+  applyGradientToRegion(0, 0, W - 1, H - 1);
 }
 
 // === BOOT ===
