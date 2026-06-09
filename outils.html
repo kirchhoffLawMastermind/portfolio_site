@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outils — Arthur Malan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0a0a0a;
+      --panel:   #111111;
+      --border:  #222222;
+      --border2: #2e2e2e;
+      --ink:     #f0ede8;
+      --ink2:    #a8a49e;
+      --ink3:    #555250;
+      --accent:  #e8632a;
+      --accent2: #c44e1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      height: 52px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo::before {
+      content: '';
+      display: block;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    nav a {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      text-decoration: none;
+      padding: 5px 16px;
+      border-right: 1px solid var(--border);
+      transition: color 0.15s, background 0.15s;
+    }
+    nav a:last-child { border-right: none; }
+    nav a:hover { color: var(--ink); background: #161616; }
+    nav a.active { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 48px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .hero h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--ink2);
+      line-height: 1.7;
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2rem;
+    }
+    .divider hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── TOOLS GRID ── */
+    .tools-section {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .tool-card {
+      background: var(--bg);
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.2s ease;
+    }
+    .tool-card:hover { background: var(--panel); }
+    .tool-card:hover::before { transform: scaleY(1); }
+
+    .tool-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      border: 1px solid var(--border2);
+      padding: 2px 8px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .tool-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .tool-desc {
+      font-size: 0.875rem;
+      color: var(--ink2);
+      line-height: 1.65;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .tool-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .tool-tech {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tech-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+    }
+
+    .tool-arrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .tool-card:hover .tool-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    /* ── BACK LINK ── */
+    .back-bar {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2rem 3rem;
+    }
+    .back-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.15s;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+    }
+    .back-link:hover { color: var(--ink); border-color: var(--border2); }
+    .back-link::before { content: '←'; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .tools-section { padding: 2rem 1.25rem 3rem; }
+      nav a { padding: 5px 10px; }
+      footer { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="https://kirchhofflawmastermind.github.io/portfolio_site/">Arthur Malan</a>
+    <nav>
+      <a href="https://kirchhofflawmastermind.github.io/portfolio_site/#infos">Infos</a>
+      <a href="https://kirchhofflawmastermind.github.io/portfolio_site/#projets">Projets</a>
+      <a href="outils.html" class="active">Outils</a>
+      <a href="https://github.com/kirchhoffLawMastermind" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-eyebrow">Outils</div>
+    <h1>Des outils<br>pour <span>le terrain.</span></h1>
+    <p>Utilitaires développés en parallèle de mes projets GEII — conçus pour répondre à des besoins concrets : génération de bitmaps pour MCU, suivi de performances.</p>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <section class="tools-section">
+    <div class="section-label">Disponibles</div>
+    <div class="tools-grid">
+
+      <a class="tool-card" href="bitmap-generator.html">
+        <span class="tool-tag">Embarqué</span>
+        <div class="tool-name">BitForge</div>
+        <div class="tool-desc">Éditeur de pixels et générateur de tableaux C pour bibliothèques MCU — Adafruit GFX, U8g2, TFT_eSPI, LVGL. Import d'image avec dithering Floyd-Steinberg, Atkinson et Bayer.</div>
+        <div class="tool-meta">
+          <div class="tool-tech">
+            <span class="tech-pill">Canvas API</span>
+            <span class="tech-pill">C / .h</span>
+            <span class="tech-pill">Arduino</span>
+          </div>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="speedcube-timer.html">
+        <span class="tool-tag">Utilitaire</span>
+        <div class="tool-name">SpeedCube Timer</div>
+        <div class="tool-desc">Chronomètre de speedcubing avec génération de scrambles, statistiques de session (PB, Ao3, Ao5) et historique persistant via IndexedDB. Supporte 3×3, 2×2, 4×4 et Pyraminx.</div>
+        <div class="tool-meta">
+          <div class="tool-tech">
+            <span class="tech-pill">IndexedDB</span>
+            <span class="tech-pill">Vanilla JS</span>
+          </div>
+          <span class="tool-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="back-bar">
+    <a class="back-link" href="https://kirchhofflawmastermind.github.io/portfolio_site/">Retour au portfolio</a>
+  </div>
+
+  <footer>
+    <span class="footer-name">Arthur Malan — GEII</span>
+    <div class="footer-links">
+      <a href="https://github.com/kirchhoffLawMastermind" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/arthur-malan-/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:arthur.malan@free.fr">Mail</a>
+    </div>
+  </footer>
+
+</body>
+</html>
