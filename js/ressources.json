@@ -1,0 +1,76 @@
+[
+  {
+    "id": "sae1",
+    "label": "SAE 1",
+    "desc": "Semestre 1",
+    "color": "blue",
+    "icon": "⚡",
+    "sub": "Semestre 1",
+    "fullDesc": "Première SAE du BUT GEII — initiation à l'analyse de systèmes simples, mise en œuvre de circuits de base et rédaction de compte-rendu.",
+    "files": [
+      { "name": "Rapport SAE 1.pdf",   "href": "assets/doc/SAE1/rapport_sae1.pdf" },
+      { "name": "Compte-rendu TP.pdf", "href": "assets/doc/SAE1/CR_TP.pdf" }
+    ]
+  },
+  {
+    "id": "sae2",
+    "label": "SAE 2",
+    "desc": "Semestre 2",
+    "color": "teal",
+    "icon": "🔌",
+    "sub": "Semestre 2",
+    "fullDesc": "Conception et simulation de systèmes logiques combinatoires. Utilisation d'outils CAO et programmation de composants logiques.",
+    "files": [
+      { "name": "Rapport SAE 2.pdf", "href": "assets/doc/SAE2/rapport_sae2.pdf" }
+    ]
+  },
+  {
+    "id": "sae3",
+    "label": "SAE 3",
+    "desc": "Semestre 3",
+    "color": "purple",
+    "icon": "💻",
+    "sub": "Semestre 3",
+    "fullDesc": "Développement d'une application embarquée sur microcontrôleur. Programmation en C, gestion des périphériques et communication série.",
+    "files": [
+      { "name": "Rapport SAE 3.pdf", "href": "assets/doc/SAE3/rapport_sae3.pdf" },
+      { "name": "Code source.zip",   "href": "assets/doc/SAE3/code_sae3.zip" }
+    ]
+  },
+  {
+    "id": "sae4",
+    "label": "SAE 4",
+    "desc": "Semestre 4",
+    "color": "coral",
+    "icon": "🛠️",
+    "sub": "Semestre 4",
+    "fullDesc": "Projet complet intégrant électronique, informatique industrielle et automatisme. Réalisation en équipe avec soutenance orale.",
+    "files": [
+      { "name": "Rapport final SAE 4.pdf", "href": "assets/doc/SAE4/rapport_sae4.pdf" },
+      { "name": "Présentation.pdf",        "href": "assets/doc/SAE4/presentation.pdf" }
+    ]
+  },
+  {
+    "id": "stage",
+    "label": "Stage",
+    "desc": "En entreprise",
+    "color": "amber",
+    "icon": "💼",
+    "sub": "En entreprise",
+    "fullDesc": "Stage de formation en entreprise — découverte du milieu professionnel, application des compétences acquises en BUT GEII.",
+    "files": [
+      { "name": "Rapport de stage.pdf",     "href": "assets/doc/stage/rapport_stage.pdf" },
+      { "name": "Attestation de stage.pdf", "href": "assets/doc/stage/attestation.pdf" }
+    ]
+  },
+  {
+    "id": "autres",
+    "label": "Autres",
+    "desc": "Projets perso",
+    "color": "pink",
+    "icon": "⭐",
+    "sub": "Hors cursus",
+    "fullDesc": "Projets personnels, certifications et autres réalisations en dehors du cursus officiel.",
+    "files": []
+  }
+]
