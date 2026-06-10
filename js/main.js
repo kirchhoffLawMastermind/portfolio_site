@@ -49,17 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Liens en texte brut de l'intro
     const introInfos = document.getElementById("intro-infos");
-    const introProjets = document.getElementById("intro-projets");
+    const introCompetences = document.getElementById("intro-competences");
     if (introInfos) {
         introInfos.addEventListener("click", (e) => {
             e.preventDefault();
-            document.getElementById("info-btn").click(); // réutilise l'ouverture de la modale
+            document.getElementById("info-btn").click();
         });
     }
-    if (introProjets) {
-        introProjets.addEventListener("click", (e) => {
+    if (introCompetences) {
+        introCompetences.addEventListener("click", (e) => {
             e.preventDefault();
-            // Défile jusqu'à la fin de la séquence : état final avec tous les projets
             lenis.scrollTo(window.innerHeight * 4.0, { duration: 2 });
         });
     }

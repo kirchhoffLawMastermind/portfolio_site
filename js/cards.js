@@ -31,7 +31,20 @@ export async function initCards() {
     function renderProjectDetails(project) {
         document.getElementById("project-view-title").textContent = project.title;
         document.getElementById("project-view-subtitle").textContent = project.subtitle || '';
-        document.getElementById("project-view-desc").textContent = project.description;
+        const descEl = document.getElementById("project-view-desc");
+        const desc = project.description;
+        if (Array.isArray(desc)) {
+            descEl.innerHTML = desc.map(item => {
+                if (typeof item === 'string') return `<p>${item}</p>`;
+                if (item.img) {
+                    const cap = item.caption ? `<span class="desc-img-caption">${item.caption}</span>` : '';
+                    return `<figure class="desc-img-wrap"><img src="${item.img}" alt="${item.caption || ''}" class="desc-img">${cap}</figure>`;
+                }
+                return '';
+            }).join('');
+        } else {
+            descEl.textContent = desc;
+        }
 
         document.getElementById("project-view-apprentissages").innerHTML =
             project.apprentissages.map(a => `<li>${a}</li>`).join('');

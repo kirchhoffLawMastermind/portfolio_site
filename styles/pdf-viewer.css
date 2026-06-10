@@ -169,7 +169,7 @@
   text-decoration: underline;
 }
 
-/* ── Responsive ── */
+/* ── Responsive PDF modal ── */
 
 @media (max-width: 1024px) {
   .pdf-trigger-label { font-size: 2.5vw; }
@@ -177,4 +177,174 @@
   .pdf-trigger-icon  { width: 6vw; height: 6vw; }
   .pdf-trigger-icon svg { width: 3vw; height: 3vw; }
   .pdf-modal-content { width: 92vw; height: 80vh; }
+}
+
+
+/* ════════════════════════════════════════════════
+   PROJECTS PDF PICKER MODAL
+   ════════════════════════════════════════════════ */
+
+#projects-pdf-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.projects-pdf-overlay-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+}
+
+.projects-pdf-content {
+  position: relative;
+  width: 38vw;
+  background: #111;
+  border: 1px solid #252525;
+  border-radius: 1.2vw;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(6vh);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.projects-pdf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4vw 1.6vw 1.2vw;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.projects-pdf-title {
+  font-size: 0.75vw;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #555250;
+  font-family: inherit;
+}
+
+#projects-pdf-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vw;
+  font-size: 0.75vw;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  background: transparent;
+  border: 1px solid #2e2e2e;
+  padding: 0.3vw 0.8vw;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 9999px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#projects-pdf-close svg {
+  width: 0.9vw;
+  height: 0.9vw;
+}
+
+#projects-pdf-close:hover {
+  border-color: #888;
+  color: #f0ede8;
+}
+
+.projects-pdf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #1a1a1a;
+}
+
+.pdf-proj-card {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 1.4vw 1.6vw;
+  background: #111;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+
+.pdf-proj-card:hover {
+  background: #161616;
+}
+
+.pdf-proj-card:hover .pdf-proj-arrow {
+  transform: translate(2px, -2px);
+  color: #ff9d41;
+}
+
+.pdf-proj-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vh;
+  min-width: 0;
+}
+
+.pdf-proj-name {
+  font-size: 0.85vw;
+  font-weight: 600;
+  color: #e8e5e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdf-proj-sub {
+  font-size: 0.7vw;
+  color: #555250;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdf-proj-arrow {
+  flex-shrink: 0;
+  color: #3a3a3a;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
+}
+
+.pdf-proj-arrow svg {
+  width: 1vw;
+  height: 1vw;
+  display: block;
+}
+
+/* ── Responsive picker ── */
+
+@media (max-width: 1024px) {
+  .projects-pdf-content {
+    width: 80vw;
+    border-radius: 3vw;
+  }
+  .projects-pdf-header { padding: 4vw 5vw 3.5vw; }
+  .projects-pdf-title  { font-size: 2.5vw; }
+  #projects-pdf-close  { font-size: 2.5vw; padding: 1vw 3vw; gap: 1.5vw; }
+  #projects-pdf-close svg { width: 3vw; height: 3vw; }
+  .pdf-proj-card  { padding: 4vw 5vw; gap: 3vw; }
+  .pdf-proj-name  { font-size: 3vw; }
+  .pdf-proj-sub   { font-size: 2.5vw; }
+  .pdf-proj-arrow svg { width: 3.5vw; height: 3.5vw; }
+}
+
+@media (max-width: 768px) {
+  .projects-pdf-content { width: 92vw; }
+  .projects-pdf-grid { grid-template-columns: 1fr; }
 }
