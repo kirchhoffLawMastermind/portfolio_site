@@ -1,0 +1,58 @@
+<!-- ============================================================
+   INTÉGRATION — 4 étapes
+   ============================================================
+
+   1. Dans <head>, après les autres <link rel="stylesheet"> :
+      <link rel="stylesheet" href="styles/ressources.css">
+
+   2. Dans index.html, COLLER ce bloc <section> + <div modal>
+      après la section #project-view (avant </main>
+      ou juste avant </body> selon ta structure de scroll GSAP)
+
+   3. Dans <head> ou avant </body> :
+      <script src="js/ressources.js" defer></script>
+      (ou import './ressources.js'; dans main.js si tu préfères tout en module)
+
+   4. Remplace les href dans ressources.json par les vrais chemins PDF.
+   ============================================================ -->
+
+
+<!-- ==================== SECTION ==================== -->
+
+<section id="ressources" class="ressources-section">
+    <div class="ressources-inner">
+        <h2 class="ressources-title">Ressources</h2>
+        <p class="ressources-subtitle">Travaux académiques, SAE &amp; stages</p>
+        <div class="ressources-grid" id="ressourcesGrid"></div>
+    </div>
+</section>
+
+
+<!-- ==================== MODAL ==================== -->
+
+<div class="res-modal-bg" id="resModalBg" role="dialog" aria-modal="true" aria-labelledby="resModalTitle">
+    <div class="res-modal-overlay"></div>
+    <div class="res-modal">
+
+        <div class="res-modal-header">
+            <div class="res-modal-icon" id="resModalIcon"></div>
+            <div class="res-modal-header-text">
+                <h3 id="resModalTitle"></h3>
+                <p id="resModalSub"></p>
+            </div>
+            <button class="res-modal-close" data-res-close aria-label="Fermer">&#x2715;</button>
+        </div>
+
+        <div class="res-modal-body">
+            <p class="res-modal-desc" id="resModalDesc"></p>
+            <p class="res-modal-files-label">Fichiers &amp; liens</p>
+            <div class="res-file-list" id="resFileList"></div>
+            <p class="res-modal-empty" id="resModalEmpty"></p>
+        </div>
+
+        <div class="res-modal-footer">
+            <button class="res-btn-close" data-res-close>Fermer</button>
+        </div>
+
+    </div>
+</div>
