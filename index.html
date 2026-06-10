@@ -159,6 +159,18 @@
                         <h3 class="project-section-title">Auto-évaluation</h3>
                         <div id="project-view-autoevaluation" class="autoeval-grid"></div>
                     </div>
+                    div class="project-section" id="pdf-section">
+                        <h3 class="project-section-title">Rapport / Document</h3>
+                        <div class="pdf-viewer-wrap">
+                            <div class="pdf-toolbar">
+                                <span id="pdf-label" class="pdf-label"></span>
+                                <a id="pdf-download" class="pdf-dl-btn" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet</a>
+                            </div>
+                            <iframe id="pdf-frame" src="" loading="lazy" title="Document PDF"></iframe>
+                            <p class="pdf-fallback">Le PDF ne s'affiche pas ? <a id="pdf-fallback-link" href="#" target="_blank" rel="noopener">Télécharger le fichier</a></p>
+                        </div>
+                    </div>
+
                 </div>
                 <button id="close-project">Fermer le projet</button>
             </div>
