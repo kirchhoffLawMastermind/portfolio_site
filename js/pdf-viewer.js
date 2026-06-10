@@ -2,18 +2,19 @@
  * pdf-viewer.js
  * Injecte le PDF correspondant à chaque projet quand #project-view devient visible.
  * Aucune modification de main.js nécessaire — fonctionne par observation du DOM.
- *
- * Convention de nommage attendue : assets/doc/C1.pdf, C2.pdf, C3.pdf, C4.pdf
- * Le mapping est déduit de l'id du projet dans projects.json (id: 1 → C1.pdf).
  */
 
 (function () {
   // ── Config ──────────────────────────────────────────────────────────────
-  const PDF_BASE   = 'assets/doc/';          // chemin relatif vers les PDFs
-  const PDF_PREFIX = 'C';                     // ex: C1.pdf, C2.pdf ...
-  const PDF_EXT    = '.pdf';
+  const PDF_BASE = 'assets/doc/';
 
-  // Labels affichés dans la toolbar (optionnel, indexé sur l'id projet)
+  const PDF_FILES = {
+    1: 'Carnet_CONCEVOIR_Arthur_Malan.pdf',
+    2: 'Carnet_VERIFIER_Arthur_Malan.pdf',
+    3: 'Carnet_MAINTENIR_Arthur_Malan.pdf',
+    4: 'Carnet_IMPLANTER_Arthur_Malan.pdf',
+  };
+
   const PDF_LABELS = {
     1: 'C1 — Concevoir',
     2: 'C2 — Vérifier & Valider',
@@ -52,12 +53,12 @@
   }
 
   function loadPdf(id) {
-    if (!id) {
+    if (!id || !PDF_FILES[id]) {
       pdfSection.style.display = 'none';
       return;
     }
 
-    const path = `${PDF_BASE}${PDF_PREFIX}${id}${PDF_EXT}`;
+    const path = `${PDF_BASE}${PDF_FILES[id]}`;
 
     pdfFrame.src        = path;
     pdfDownload.href    = path;
