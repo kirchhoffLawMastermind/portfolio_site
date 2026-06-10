@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="styles/story.css">
     <link rel="stylesheet" href="styles/project.css">
     <link rel="stylesheet" href="styles/modal.css">
-
     <link rel="stylesheet" href="styles/pdf-viewer.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MorphSVGPlugin.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 </head>
 <body>
@@ -61,6 +60,25 @@
         <img src="assets/img/UNIRENNES_LOGO_lumineu_orange.png" alt="Université de Rennes Logo" class="nav-logo">
         <img src="assets/img/IUTRennes-GEII_orange.png" alt="IUT Rennes GEII Logo" class="nav-logo">
     </div>
+
+    <!-- Formes de découpe de l'image d'intro (sources : assets/shapes/, icônes Noun Project —
+         "abstract shape" by Side Project, "quadrangle" by Viktor Vorobyev) : la croix en escalier
+         est morphée vers le quadrilatère organique par MorphSVG pendant le scroll.
+         clipPathUnits="objectBoundingBox" : coordonnées 0..1, la découpe suit le redimensionnement de l'image. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <!-- Coordonnées en espace 0-100 ramenées en 0-1 par scale(0.01) : MorphSVG arrondit
+                 à 2 décimales, en espace 0-1 ça crée des sauts visibles de 1% à chaque frame.
+                 objectBoundingBox étire les coordonnées sur la largeur ET la hauteur : le scale x
+                 est divisé par le ratio de intro.jpg (4:3 → 0.01/1.3333 = 0.0075) et la forme est
+                 recentrée (translate 0.125) pour qu'elle garde ses proportions. À recalculer si
+                 intro.jpg change de ratio. -->
+            <clipPath id="intro-clip" clipPathUnits="objectBoundingBox">
+                <path id="intro-clip-path" transform="translate(0.125,0) scale(0.0075,0.01)" d="m 96.88,23.44 l -20.31,0 l 0,-20.31 c 0,-1.73 -1.4,-3.12 -3.12,-3.12 l -23.44,0 c -1.73,0 -3.12,1.4 -3.12,3.12 l 0,20.31 l -20.31,0 c -1.73,0 -3.12,1.4 -3.12,3.12 l 0,20.31 l -20.31,0 c -1.73,0 -3.12,1.4 -3.12,3.12 l 0,23.44 c 0,1.73 1.4,3.12 3.12,3.12 l 20.31,0 l 0,20.31 c 0,1.73 1.4,3.12 3.12,3.12 l 23.44,0 c 1.73,0 3.12,-1.4 3.12,-3.12 l 0,-20.31 l 20.31,0 c 1.73,0 3.12,-1.4 3.12,-3.12 l 0,-20.31 l 20.31,0 c 1.73,0 3.12,-1.4 3.12,-3.12 l 0,-23.44 c 0,-1.73 -1.4,-3.12 -3.12,-3.12 z"/>
+            </clipPath>
+            <path id="intro-clip-path-end" d="M 42.01,98.96 l 42.3,-13.93 C 94.55,81.62 101.08,71.11 99.85,59.81 l -4.19,-39.02 C 93.81,4.23 76.79,-5.1 62.97,2.92 l -51.55,30.22 c -11.1,6.57 -14.8,21.68 -8.02,33.11 L 16.85,88.97 C 22.15,97.91 32.51,102.11 42.01,98.96 z" fill="none"/>
+        </defs>
+    </svg>
 
     <img id="intro-img" src="assets/img/intro.jpg" alt="Introduction">
 
@@ -162,25 +180,44 @@
                         <h3 class="project-section-title">Auto-évaluation</h3>
                         <div id="project-view-autoevaluation" class="autoeval-grid"></div>
                     </div>
-
-                    
                     <div class="project-section" id="pdf-section">
                         <h3 class="project-section-title">Rapport / Document</h3>
-                        <div class="pdf-viewer-wrap">
-                            <div class="pdf-toolbar">
-                                <span id="pdf-label" class="pdf-label"></span>
-                                <a id="pdf-download" class="pdf-dl-btn" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet</a>
-                            </div>
-                            <iframe id="pdf-frame" src="" loading="lazy" title="Document PDF"></iframe>
-                            <p class="pdf-fallback">Le PDF ne s'affiche pas ? <a id="pdf-fallback-link" href="#" target="_blank" rel="noopener">Télécharger le fichier</a></p>
+                        <div class="pdf-trigger" id="pdf-trigger">
+                            <span class="pdf-trigger-label" id="pdf-label">—</span>
+                            <button class="pdf-trigger-btn">
+                                Voir
+                                <div class="pdf-trigger-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                                        <polyline points="7 7 17 7 17 17"></polyline>
+                                    </svg>
+                                </div>
+                            </button>
                         </div>
                     </div>
-                    
+
                 </div>
                 <button id="close-project">Fermer le projet</button>
             </div>
         </section>
     </main>
+    <!-- Modale PDF : s'ouvre par clic sur #pdf-trigger dans le panel projet -->
+    <div id="pdf-modal" data-lenis-prevent>
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-toolbar">
+                <span class="pdf-modal-label" id="pdf-modal-label"></span>
+                <div class="pdf-modal-actions">
+                    <a id="pdf-download" class="pdf-dl-btn" target="_blank" rel="noopener">Télécharger</a>
+                    <button id="pdf-modal-close">Fermer</button>
+                </div>
+            </div>
+            <object id="pdf-frame" data="" type="application/pdf" title="Document PDF">
+                <p class="pdf-fallback">Le PDF ne s'affiche pas dans votre navigateur. <a id="pdf-fallback-link" href="#" target="_blank" rel="noopener">Télécharger le fichier</a></p>
+            </object>
+        </div>
+    </div>
+
     <script type="module" src="js/main.js"></script>
+    <script src="js/pdf-viewer.js" defer></script>
 </body>
 </html>

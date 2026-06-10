@@ -1,107 +1,104 @@
-/**
- * pdf-viewer.js
- * Injecte le PDF correspondant à chaque projet quand #project-view devient visible.
- * Aucune modification de main.js nécessaire — fonctionne par observation du DOM.
- */
-
 (function () {
-  // ── Config ──────────────────────────────────────────────────────────────
-  const PDF_BASE = 'assets/doc/';
-
-  const PDF_FILES = {
-    1: 'Carnet_CONCEVOIR_Arthur_Malan.pdf',
-    2: 'Carnet_VERIFIER_Arthur_Malan.pdf',
-    3: 'Carnet_MAINTENIR_Arthur_Malan.pdf',
-    4: 'Carnet_IMPLANTER_Arthur_Malan.pdf',
+  // Chemins réels des carnets, indexés sur l'id projet de projects.json
+  const PDF_PATHS = {
+    1: 'assets/doc/Carnet_CONCEVOIR_Arthur_Malan.pdf',
+    2: 'assets/doc/Carnet_VERIFIER_Arthur_Malan.pdf',
+    3: 'assets/doc/Carnet_MAINTENIR_Arthur_Malan.pdf',
+    4: 'assets/doc/Carnet_IMPLANTER_Arthur_Malan.pdf',
   };
-
   const PDF_LABELS = {
     1: 'C1 — Concevoir',
     2: 'C2 — Vérifier & Valider',
     3: 'C3 — Maintenir',
     4: 'C4 — Implanter & Mettre en service',
   };
-  // ────────────────────────────────────────────────────────────────────────
 
-  const projectView = document.getElementById('project-view');
-  const pdfFrame    = document.getElementById('pdf-frame');
-  const pdfDownload = document.getElementById('pdf-download');
-  const pdfFallback = document.getElementById('pdf-fallback-link');
-  const pdfLabel    = document.getElementById('pdf-label');
-  const pdfSection  = document.getElementById('pdf-section');
+  const trigger       = document.getElementById('pdf-trigger');
+  const modal         = document.getElementById('pdf-modal');
+  const modalContent  = modal && modal.querySelector('.pdf-modal-content');
+  const pdfFrame      = document.getElementById('pdf-frame');
+  const pdfDownload   = document.getElementById('pdf-download');
+  const pdfFallback   = document.getElementById('pdf-fallback-link');
+  const pdfLabel      = document.getElementById('pdf-label');
+  const pdfModalLabel = document.getElementById('pdf-modal-label');
+  const closeBtn      = document.getElementById('pdf-modal-close');
+  const pdfSection    = document.getElementById('pdf-section');
+  const titleEl       = document.getElementById('project-view-title');
+  const closeProject  = document.getElementById('close-project');
 
-  if (!projectView || !pdfFrame) return;
+  if (!trigger || !modal || !titleEl) return;
 
-  /**
-   * Récupère l'id du projet courant.
-   * main.js stocke l'id en data-project-id sur #project-view quand il ouvre un projet.
-   * Sinon, on tente de déduire l'id depuis le titre affiché (fallback).
-   */
-  function getCurrentProjectId() {
-    // Méthode 1 : data-attribute posé par main.js (si disponible)
-    const fromAttr = projectView.dataset.projectId;
-    if (fromAttr) return parseInt(fromAttr, 10);
+  pdfSection.style.display = 'none';
 
-    // Méthode 2 : lire le titre et extraire le numéro (ex: "C3, Maintenir" → 3)
-    const titleEl = document.getElementById('project-view-title');
-    if (titleEl) {
-      const match = titleEl.textContent.match(/C(\d)/);
-      if (match) return parseInt(match[1], 10);
-    }
-
-    return null;
+  // ── Lit l'id projet depuis le titre affiché ─────────────────────────────
+  function getIdFromTitle() {
+    const match = titleEl.textContent.match(/C(\d)/);
+    return match ? parseInt(match[1], 10) : null;
   }
 
-  function loadPdf(id) {
-    if (!id || !PDF_FILES[id]) {
-      pdfSection.style.display = 'none';
-      return;
-    }
+  // ── Met à jour labels/liens quand un projet s'ouvre ────────────────────
+  function setPdf(id) {
+    const path  = PDF_PATHS[id];
+    const label = PDF_LABELS[id];
+    if (!path) { pdfSection.style.display = 'none'; return; }
 
-    const path = `${PDF_BASE}${PDF_FILES[id]}`;
-
-    pdfFrame.src        = path;
-    pdfDownload.href    = path;
-    pdfFallback.href    = path;
-    pdfLabel.textContent = PDF_LABELS[id] || `Compétence C${id}`;
+    if (pdfLabel)      pdfLabel.textContent     = label;
+    if (pdfModalLabel) pdfModalLabel.textContent = label;
+    if (pdfDownload)   pdfDownload.href          = path;
+    if (pdfFallback)   pdfFallback.href          = path;
+    modal.dataset.pdfPath = path;
     pdfSection.style.display = '';
   }
 
-  function clearPdf() {
-    pdfFrame.src = '';
+  // ── Ouvre la modale ─────────────────────────────────────────────────────
+  function openModal() {
+    const path = modal.dataset.pdfPath;
+    if (!path) return;
+    if (pdfFrame.data !== path) pdfFrame.data = path;
+
+    gsap.set(modal, { visibility: 'visible', pointerEvents: 'auto' });
+    gsap.set(modalContent, { pointerEvents: 'auto' });
+    gsap.fromTo(modalContent,
+      { opacity: 0, y: '6vh' },
+      { opacity: 1, y: '0vh', duration: 0.65, ease: 'power4.out' }
+    );
+    gsap.to('#project-view', { filter: 'blur(12px)', opacity: 0.25, duration: 0.5, ease: 'power2.out' });
+  }
+
+  // ── Ferme la modale ─────────────────────────────────────────────────────
+  function closeModal() {
+    gsap.to(modalContent, {
+      opacity: 0, y: '4vh', duration: 0.4, ease: 'power3.in',
+      onComplete: () => {
+        gsap.set(modal, { visibility: 'hidden', pointerEvents: 'none' });
+        gsap.set(modalContent, { pointerEvents: 'none' });
+      }
+    });
+    gsap.to('#project-view', {
+      filter: 'blur(0px)', opacity: 1, duration: 0.5, ease: 'power2.out',
+      onComplete: () => gsap.set('#project-view', { clearProps: 'filter,opacity' })
+    });
+  }
+
+  // ── Listeners ───────────────────────────────────────────────────────────
+  trigger.addEventListener('click', openModal);
+  closeBtn   && closeBtn.addEventListener('click', closeModal);
+  closeProject && closeProject.addEventListener('click', () => {
+    if (modal.style.visibility === 'visible') closeModal();
+    pdfFrame.data = '';
     pdfSection.style.display = 'none';
-  }
-
-  // ── Observer : surveille l'apparition/disparition de #project-view ──────
-  const observer = new MutationObserver(() => {
-    const isVisible =
-      projectView.classList.contains('active') ||
-      projectView.classList.contains('open')   ||
-      (projectView.style.display !== 'none' && projectView.offsetParent !== null);
-
-    if (isVisible) {
-      // Petit délai pour laisser main.js finir d'injecter le titre
-      setTimeout(() => loadPdf(getCurrentProjectId()), 50);
-    } else {
-      clearPdf();
-    }
   });
 
-  observer.observe(projectView, {
-    attributes: true,
-    attributeFilter: ['class', 'style', 'data-project-id'],
+  modal.addEventListener('click', (e) => {
+    if (!e.target.closest('.pdf-modal-content')) closeModal();
   });
 
-  // ── Patch main.js : si main.js expose openProject globalement ────────────
-  // On wrappe la fonction pour capturer l'id au moment de l'appel.
-  const _originalOpen = window.openProject;
-  if (typeof _originalOpen === 'function') {
-    window.openProject = function (project, ...rest) {
-      _originalOpen(project, ...rest);
-      if (project && project.id) loadPdf(project.id);
-    };
-  }
-
-  // Initialisation : si un projet est déjà ouvert au chargement
-  clearPdf();
+  // ── Observer sur le TITRE : signal fiable qu'un projet a été ouvert ─────
+  // renderProjectDetails() dans cards.js écrit le titre de façon synchrone
+  // avant que GSAP n'anime le panel — le titre est donc déjà là quand on lit.
+  new MutationObserver(() => {
+    const id = getIdFromTitle();
+    if (id) setPdf(id);
+    else { pdfSection.style.display = 'none'; pdfFrame.data = ''; }
+  }).observe(titleEl, { childList: true, characterData: true, subtree: true });
 })();

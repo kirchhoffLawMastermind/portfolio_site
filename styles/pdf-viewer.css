@@ -1,43 +1,124 @@
-/* ── PDF VIEWER ── */
+/* ── PDF TRIGGER (dans le panel projet) ── */
 
-#pdf-section {
-  margin-top: 0.5rem;
-}
-
-.pdf-viewer-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid #222;
-}
-
-.pdf-toolbar {
+.pdf-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  background: #111;
-  border-bottom: 1px solid #222;
+  padding: 1vh 1vw;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: border-color 0.2s;
 }
 
-.pdf-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
+.pdf-trigger:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.pdf-trigger-label {
+  font-size: 0.9vw;
+  color: #ccc;
+  font-style: italic;
+}
+
+.pdf-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6vw;
+  padding: 0.4vh 0.4vh 0.4vh 1.2vw;
+  background: linear-gradient(to bottom right, #bdbdbd, #ff9d41);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9vw;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s;
+  white-space: nowrap;
+}
+
+.pdf-trigger-btn:hover {
+  transform: scale(1.04);
+}
+
+.pdf-trigger-icon {
+  background: #fff;
+  border-radius: 50%;
+  width: 2vw;
+  height: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff9d41;
+  flex-shrink: 0;
+}
+
+.pdf-trigger-icon svg {
+  width: 1.1vw;
+  height: 1.1vw;
+}
+
+/* ── PDF MODAL ── */
+
+#pdf-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pdf-modal-content {
+  width: 80vw;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  opacity: 0;
+  transform: translateY(6vh);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.pdf-modal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: #0d0d0d;
+  border-bottom: 1px solid #222;
+  flex-shrink: 0;
+}
+
+.pdf-modal-label {
+  font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #555250;
+  font-family: inherit;
+}
+
+.pdf-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8vw;
 }
 
 .pdf-dl-btn {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #e8632a;
   text-decoration: none;
   border: 1px solid #2e2e2e;
-  padding: 3px 10px;
+  padding: 4px 12px;
   transition: border-color 0.15s, color 0.15s;
+  font-family: inherit;
 }
 
 .pdf-dl-btn:hover {
@@ -45,21 +126,38 @@
   color: #f0ede8;
 }
 
+#pdf-modal-close {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #888;
+  background: transparent;
+  border: 1px solid #2e2e2e;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#pdf-modal-close:hover {
+  border-color: #888;
+  color: #f0ede8;
+}
+
 #pdf-frame {
+  flex: 1;
   width: 100%;
-  height: 520px;
   border: none;
   display: block;
   background: #0a0a0a;
+  min-height: 0;
 }
 
 .pdf-fallback {
-  padding: 6px 12px;
-  font-size: 10px;
+  padding: 4vh 2vw;
+  font-size: 11px;
   color: #555250;
-  background: #111;
-  border-top: 1px solid #222;
-  font-family: 'Space Mono', monospace;
+  font-family: inherit;
 }
 
 .pdf-fallback a {
@@ -69,4 +167,14 @@
 
 .pdf-fallback a:hover {
   text-decoration: underline;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .pdf-trigger-label { font-size: 2.5vw; }
+  .pdf-trigger-btn   { font-size: 2.5vw; padding: 1vh 1vh 1vh 3vw; gap: 1.5vw; }
+  .pdf-trigger-icon  { width: 6vw; height: 6vw; }
+  .pdf-trigger-icon svg { width: 3vw; height: 3vw; }
+  .pdf-modal-content { width: 92vw; height: 80vh; }
 }

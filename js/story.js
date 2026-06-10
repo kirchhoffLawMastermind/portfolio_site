@@ -2,7 +2,7 @@ export function initStory() {
     if (window.__storyReady) return;
     window.__storyReady = true;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
 
     const heroName = document.getElementById("hero-name");
     const introImg = document.getElementById("intro-img");
@@ -49,6 +49,13 @@ export function initStory() {
     .to(introImg, {
         top: finalImgTop,
         width: "40vw",
+        ease: "none",
+        duration: 1
+    }, 0)
+    // La découpe de l'image morphe de la croix vers le quadrilatère
+    // pendant le déplacement de l'image (même durée, même départ)
+    .to("#intro-clip-path", {
+        morphSVG: "#intro-clip-path-end",
         ease: "none",
         duration: 1
     }, 0)
