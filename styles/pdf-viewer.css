@@ -1,0 +1,72 @@
+/* ── PDF VIEWER ── */
+
+#pdf-section {
+  margin-top: 0.5rem;
+}
+
+.pdf-viewer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #222;
+}
+
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+.pdf-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #555250;
+}
+
+.pdf-dl-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #e8632a;
+  text-decoration: none;
+  border: 1px solid #2e2e2e;
+  padding: 3px 10px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.pdf-dl-btn:hover {
+  border-color: #e8632a;
+  color: #f0ede8;
+}
+
+#pdf-frame {
+  width: 100%;
+  height: 520px;
+  border: none;
+  display: block;
+  background: #0a0a0a;
+}
+
+.pdf-fallback {
+  padding: 6px 12px;
+  font-size: 10px;
+  color: #555250;
+  background: #111;
+  border-top: 1px solid #222;
+  font-family: 'Space Mono', monospace;
+}
+
+.pdf-fallback a {
+  color: #e8632a;
+  text-decoration: none;
+}
+
+.pdf-fallback a:hover {
+  text-decoration: underline;
+}
