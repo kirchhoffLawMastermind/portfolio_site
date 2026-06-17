@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedCube Timer - Enhanced</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-panel: #111111;
+            --text-primary: #f0ede8;
+            --text-secondary: #a8a49e;
+            --text-muted: #555250;
+            --accent: #e8632a;
+            --accent-glow: rgba(232, 99, 42, 0.25);
+            --green: #4caf72;
+            --red: #c0392b;
+            --border: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* Header */
+        header {
+            padding: 0 2rem;
+            height: 52px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-panel);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .settings-btn {
+            padding: 5px 14px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 0;
+            font-family: 'Space Mono', monospace;
+            font-weight: 400;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .settings-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .cube-selector {
+            display: flex;
+            gap: 2px;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            border: 1px solid var(--border);
+        }
+
+        .cube-btn {
+            padding: 5px 14px;
+            border: none;
+            border-right: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0;
+            font-family: 'Space Mono', monospace;
+            font-weight: 400;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.15s;
+        }
+
+        .cube-btn:last-child { border-right: none; }
+
+        .cube-btn:hover {
+            color: var(--text-primary);
+            background: #161616;
+        }
+
+        .cube-btn.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Settings Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--bg-panel);
+            border: 1px solid #2e2e2e;
+            border-radius: 0;
+            padding: 1.5rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 4px 4px 0 var(--accent);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0;
+            transition: all 0.15s;
+        }
+
+        .close-modal:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .settings-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .settings-section h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .theme-preset {
+            padding: 0.75rem 1rem;
+            margin: 4px 0;
+            border-radius: 0;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #0d0d0d;
+        }
+
+        .theme-preset:hover {
+            border-color: #2e2e2e;
+            background: #141414;
+        }
+
+        .theme-preset.selected {
+            border-color: var(--accent);
+            background: rgba(232, 99, 42, 0.06);
+        }
+
+        .theme-preview-box {
+            width: 64px;
+            height: 40px;
+            border-radius: 0;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .theme-info {
+            flex: 1;
+        }
+
+        .theme-name {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .theme-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .custom-colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .color-control {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .color-control label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 40px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            cursor: pointer;
+            background: var(--bg-dark);
+            padding: 2px;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
+            padding: 5px 8px;
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+        }
+
+        .color-input-wrapper input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            flex: 1;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: #c44e1e;
+            border-color: #c44e1e;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        /* Main Timer Area */
+        .timer-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            gap: 1.5rem;
+            min-height: 0;
+        }
+
+        .scramble {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-panel);
+            border-radius: 0;
+            border: 1px solid var(--border);
+            max-width: 800px;
+            line-height: 1.8;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            opacity: 1;
+        }
+
+        .scramble.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .timer-display {
+            font-family: 'Space Mono', monospace;
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.2s;
+            position: relative;
+            line-height: 1;
+            color: var(--text-primary);
+        }
+
+        .timer-display.ready {
+            color: var(--green);
+        }
+
+        .timer-display.holding {
+            color: var(--red);
+        }
+
+        .timer-display.running {
+            color: var(--accent);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
+
+        .instruction {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .instruction.hidden {
+            opacity: 0;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-panel);
+            flex-shrink: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card {
+            background: var(--bg-dark);
+            padding: 0.875rem 1rem;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .stat-card:last-child { border-right: none; }
+
+        .stat-card:hover {
+            background: #111;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-value.pb {
+            color: var(--accent);
+        }
+
+        .stat-value.empty {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Times History */
+        .history-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem 1rem;
+            width: 100%;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .history-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .clear-btn {
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 0;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.15s;
+        }
+
+        .clear-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .times-scroll {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding: 0.25rem 0 0.5rem;
+            scroll-behavior: smooth;
+        }
+
+        .times-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .times-scroll::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        .times-scroll::-webkit-scrollbar-thumb {
+            background: var(--border);
+        }
+
+        .times-scroll::-webkit-scrollbar-thumb:hover {
+            background: #2e2e2e;
+        }
+
+        .time-item {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: border-color 0.15s;
+            color: var(--text-secondary);
+        }
+
+        .time-item:hover {
+            border-color: #2e2e2e;
+            color: var(--text-primary);
+        }
+
+        .time-item.best {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timer-display {
+                font-size: 4rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Custom Scrollbar for modal */
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--border);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SpeedCube Timer</div>
+        <div class="header-controls">
+            <div class="cube-selector">
+                <button class="cube-btn active" data-cube="3x3">3×3</button>
+                <button class="cube-btn" data-cube="2x2">2×2</button>
+                <button class="cube-btn" data-cube="4x4">4×4</button>
+                <button class="cube-btn" data-cube="pyraminx">Pyraminx</button>
+            </div>
+            <button class="settings-btn" onclick="openSettings()">
+                Paramètres
+            </button>
+        </div>
+    </header>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Paramètres</h2>
+                <button class="close-modal" onclick="closeSettings()">×</button>
+            </div>
+
+            <div class="settings-section">
+                <h3>Thèmes Prédéfinis</h3>
+                <div id="themePresets"></div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Personnalisation Avancée</h3>
+                <div class="custom-colors-grid">
+                    <div class="color-control">
+                        <label>Fond Principal</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-bg-dark" value="#0a0a0f">
+                            <input type="text" id="text-bg-dark" value="#0a0a0f">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Fond Panneaux</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-bg-panel" value="#13131a">
+                            <input type="text" id="text-bg-panel" value="#13131a">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Texte Principal</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-text-primary" value="#e8e8ed">
+                            <input type="text" id="text-text-primary" value="#e8e8ed">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Texte Secondaire</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-text-secondary" value="#898993">
+                            <input type="text" id="text-text-secondary" value="#898993">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Accent / Timer</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-accent" value="#00d9ff">
+                            <input type="text" id="text-accent" value="#00d9ff">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Vert (Prêt)</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-green" value="#00ff88">
+                            <input type="text" id="text-green" value="#00ff88">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Rouge (Maintien)</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-red" value="#ff3366">
+                            <input type="text" id="text-red" value="#ff3366">
+                        </div>
+                    </div>
+                    <div class="color-control">
+                        <label>Bordures</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="color-border" value="#1f1f28">
+                            <input type="text" id="text-border" value="#1f1f28">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="resetToDefault()">Réinitialiser</button>
+                <button class="btn btn-primary" onclick="applyCustomTheme()">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="timer-container">
+        <div class="scramble" id="scramble"></div>
+        <div class="timer-display" id="timer">0.00</div>
+        <div class="instruction" id="instruction">Maintenez ESPACE ou cliquez pour démarrer</div>
+    </div>
+
+    <div class="stats-panel">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Record Personnel</div>
+                <div class="stat-value pb" id="pb">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Average of 3</div>
+                <div class="stat-value" id="ao3">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Average of 5</div>
+                <div class="stat-value" id="ao5">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Meilleur Ao3</div>
+                <div class="stat-value" id="pb-ao3">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Meilleur Ao5</div>
+                <div class="stat-value" id="pb-ao5">--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <div class="history-header">
+            <div class="history-title">Historique des temps</div>
+            <button class="clear-btn" id="clearBtn">Supprimer le dernier</button>
+        </div>
+        <div class="times-scroll" id="timesList"></div>
+    </div>
+
+    <script>
+        // Theme presets
+        const themePresets = {
+            'default': {
+                name: 'Cyber Bleu (Défaut)',
+                desc: 'Le thème classique du timer',
+                colors: {
+                    '--bg-dark': '#0a0a0a',
+                    '--bg-panel': '#111111',
+                    '--text-primary': '#f0ede8',
+                    '--text-secondary': '#a8a49e',
+                    '--text-muted': '#555250',
+                    '--accent': '#e8632a',
+                    '--green': '#4caf72',
+                    '--red': '#c0392b',
+                    '--border': '#222222'
+                }
+            },
+            'purple': {
+                name: 'Violet Royal',
+                desc: 'Élégant et moderne',
+                colors: {
+                    '--bg-dark': '#0f0a1f',
+                    '--bg-panel': '#1a1329',
+                    '--text-primary': '#ede8f5',
+                    '--text-secondary': '#9389a8',
+                    '--text-muted': '#554a6a',
+                    '--accent': '#a855f7',
+                    '--green': '#22c55e',
+                    '--red': '#ef4444',
+                    '--border': '#2d1f4a'
+                }
+            },
+            'ocean': {
+                name: 'Océan Profond',
+                desc: 'Calme et apaisant',
+                colors: {
+                    '--bg-dark': '#0a1628',
+                    '--bg-panel': '#0f1f38',
+                    '--text-primary': '#e0f2fe',
+                    '--text-secondary': '#7dd3fc',
+                    '--text-muted': '#475569',
+                    '--accent': '#06b6d4',
+                    '--green': '#10b981',
+                    '--red': '#f43f5e',
+                    '--border': '#1e3a5f'
+                }
+            },
+            'sunset': {
+                name: 'Coucher de Soleil',
+                desc: 'Chaud et vibrant',
+                colors: {
+                    '--bg-dark': '#1f0a0a',
+                    '--bg-panel': '#2d1313',
+                    '--text-primary': '#fff1f2',
+                    '--text-secondary': '#fda4af',
+                    '--text-muted': '#7c2d12',
+                    '--accent': '#f97316',
+                    '--green': '#84cc16',
+                    '--red': '#dc2626',
+                    '--border': '#3f1f1f'
+                }
+            },
+            'forest': {
+                name: 'Forêt Mystique',
+                desc: 'Nature et sérénité',
+                colors: {
+                    '--bg-dark': '#0a1f0a',
+                    '--bg-panel': '#132d13',
+                    '--text-primary': '#f0fdf4',
+                    '--text-secondary': '#86efac',
+                    '--text-muted': '#365c36',
+                    '--accent': '#22c55e',
+                    '--green': '#4ade80',
+                    '--red': '#fb923c',
+                    '--border': '#1f3f1f'
+                }
+            },
+            'cherry': {
+                name: 'Cerise Noire',
+                desc: 'Dramatique et intense',
+                colors: {
+                    '--bg-dark': '#18070f',
+                    '--bg-panel': '#250a17',
+                    '--text-primary': '#fce7f3',
+                    '--text-secondary': '#f9a8d4',
+                    '--text-muted': '#831843',
+                    '--accent': '#ec4899',
+                    '--green': '#14b8a6',
+                    '--red': '#be123c',
+                    '--border': '#3f1729'
+                }
+            },
+            'monochrome': {
+                name: 'Monochrome',
+                desc: 'Minimaliste et épuré',
+                colors: {
+                    '--bg-dark': '#0a0a0a',
+                    '--bg-panel': '#1a1a1a',
+                    '--text-primary': '#f5f5f5',
+                    '--text-secondary': '#a3a3a3',
+                    '--text-muted': '#525252',
+                    '--accent': '#ffffff',
+                    '--green': '#d4d4d4',
+                    '--red': '#737373',
+                    '--border': '#262626'
+                }
+            },
+            'neon': {
+                name: 'Néon Électrique',
+                desc: 'Énergie pure',
+                colors: {
+                    '--bg-dark': '#000000',
+                    '--bg-panel': '#0d0d0d',
+                    '--text-primary': '#ffffff',
+                    '--text-secondary': '#ff00ff',
+                    '--text-muted': '#666666',
+                    '--accent': '#00ff00',
+                    '--green': '#39ff14',
+                    '--red': '#ff0055',
+                    '--border': '#1a1a1a'
+                }
+            }
+        };
+
+        // Load theme presets into UI
+        function loadThemePresets() {
+            const container = document.getElementById('themePresets');
+            container.innerHTML = '';
+            
+            Object.keys(themePresets).forEach(key => {
+                const theme = themePresets[key];
+                const div = document.createElement('div');
+                div.className = 'theme-preset';
+                div.dataset.theme = key;
+                div.onclick = () => selectThemePreset(key);
+                
+                const previewBg = `linear-gradient(135deg, ${theme.colors['--accent']}, ${theme.colors['--green']})`;
+                
+                div.innerHTML = `
+                    <div class="theme-preview-box">
+                        <div class="theme-preview-bg" style="background: ${previewBg}"></div>
+                    </div>
+                    <div class="theme-info">
+                        <div class="theme-name">${theme.name}</div>
+                        <div class="theme-desc">${theme.desc}</div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+
+        // Select theme preset
+        function selectThemePreset(themeKey) {
+            document.querySelectorAll('.theme-preset').forEach(el => el.classList.remove('selected'));
+            document.querySelector(`[data-theme="${themeKey}"]`).classList.add('selected');
+            
+            const theme = themePresets[themeKey];
+            applyTheme(theme.colors);
+            updateColorInputs(theme.colors);
+            
+            localStorage.setItem('selectedTheme', themeKey);
+            localStorage.setItem('customTheme', JSON.stringify(theme.colors));
+        }
+
+        // Apply theme to CSS variables
+        function applyTheme(colors) {
+            Object.keys(colors).forEach(key => {
+                document.documentElement.style.setProperty(key, colors[key]);
+            });
+            
+            // Update accent-glow
+            const accent = colors['--accent'];
+            const r = parseInt(accent.slice(1, 3), 16);
+            const g = parseInt(accent.slice(3, 5), 16);
+            const b = parseInt(accent.slice(5, 7), 16);
+            document.documentElement.style.setProperty('--accent-glow', `rgba(${r}, ${g}, ${b}, 0.3)`);
+        }
+
+        // Update color inputs with current theme
+        function updateColorInputs(colors) {
+            Object.keys(colors).forEach(key => {
+                const varName = key.replace('--', '');
+                const colorInput = document.getElementById(`color-${varName}`);
+                const textInput = document.getElementById(`text-${varName}`);
+                
+                if (colorInput && textInput) {
+                    colorInput.value = colors[key];
+                    textInput.value = colors[key];
+                }
+            });
+        }
+
+        // Setup color input synchronization
+        function setupColorInputs() {
+            const colorVars = ['bg-dark', 'bg-panel', 'text-primary', 'text-secondary', 'accent', 'green', 'red', 'border'];
+            
+            colorVars.forEach(varName => {
+                const colorInput = document.getElementById(`color-${varName}`);
+                const textInput = document.getElementById(`text-${varName}`);
+                
+                colorInput.addEventListener('input', (e) => {
+                    textInput.value = e.target.value;
+                });
+                
+                textInput.addEventListener('input', (e) => {
+                    if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                        colorInput.value = e.target.value;
+                    }
+                });
+            });
+        }
+
+        // Apply custom theme
+        function applyCustomTheme() {
+            const customColors = {
+                '--bg-dark': document.getElementById('color-bg-dark').value,
+                '--bg-panel': document.getElementById('color-bg-panel').value,
+                '--text-primary': document.getElementById('color-text-primary').value,
+                '--text-secondary': document.getElementById('color-text-secondary').value,
+                '--text-muted': adjustBrightness(document.getElementById('color-text-secondary').value, -0.3),
+                '--accent': document.getElementById('color-accent').value,
+                '--green': document.getElementById('color-green').value,
+                '--red': document.getElementById('color-red').value,
+                '--border': document.getElementById('color-border').value
+            };
+            
+            applyTheme(customColors);
+            localStorage.setItem('selectedTheme', 'custom');
+            localStorage.setItem('customTheme', JSON.stringify(customColors));
+            
+            document.querySelectorAll('.theme-preset').forEach(el => el.classList.remove('selected'));
+            closeSettings();
+        }
+
+        // Reset to default theme
+        function resetToDefault() {
+            selectThemePreset('default');
+        }
+
+        // Adjust brightness utility
+        function adjustBrightness(hex, factor) {
+            const r = Math.max(0, Math.min(255, parseInt(hex.slice(1, 3), 16) * (1 + factor)));
+            const g = Math.max(0, Math.min(255, parseInt(hex.slice(3, 5), 16) * (1 + factor)));
+            const b = Math.max(0, Math.min(255, parseInt(hex.slice(5, 7), 16) * (1 + factor)));
+            return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
+        }
+
+        // Modal functions
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('settingsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('settingsModal')) {
+                closeSettings();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Escape' && document.getElementById('settingsModal').classList.contains('active')) {
+                closeSettings();
+            }
+        });
+
+        // Timer logic
+        let db;
+        const DB_NAME = 'SpeedCubeTimerDB';
+        const STORE_NAME = 'times';
+        let currentCubeType = '3x3';
+        let sessionTimes = [];
+        
+        let timerState = 'idle';
+        let startTime;
+        let timerInterval;
+        let holdTimeout;
+        
+        const timerDisplay = document.getElementById('timer');
+        const scrambleDisplay = document.getElementById('scramble');
+        const instruction = document.getElementById('instruction');
+        const timesList = document.getElementById('timesList');
+
+        // Scramble generators
+        const scrambleGenerators = {
+            '3x3': () => {
+                const moves = ['R', 'L', 'U', 'D', 'F', 'B'];
+                const modifiers = ['', "'", '2'];
+                let scramble = [];
+                let lastMove = '';
+                let lastAxis = '';
+                
+                for (let i = 0; i < 20; i++) {
+                    let move, axis;
+                    do {
+                        move = moves[Math.floor(Math.random() * moves.length)];
+                        axis = (move === 'R' || move === 'L') ? 'RL' : 
+                               (move === 'U' || move === 'D') ? 'UD' : 'FB';
+                    } while (move === lastMove || axis === lastAxis);
+                    
+                    lastMove = move;
+                    lastAxis = axis;
+                    scramble.push(move + modifiers[Math.floor(Math.random() * modifiers.length)]);
+                }
+                return scramble.join(' ');
+            },
+            '2x2': () => {
+                const moves = ['R', 'U', 'F'];
+                const modifiers = ['', "'", '2'];
+                let scramble = [];
+                let lastMove = '';
+                
+                for (let i = 0; i < 11; i++) {
+                    let move;
+                    do {
+                        move = moves[Math.floor(Math.random() * moves.length)];
+                    } while (move === lastMove);
+                    
+                    lastMove = move;
+                    scramble.push(move + modifiers[Math.floor(Math.random() * modifiers.length)]);
+                }
+                return scramble.join(' ');
+            },
+            '4x4': () => {
+                const moves = ['R', 'L', 'U', 'D', 'F', 'B', 'r', 'l', 'u', 'd', 'f', 'b'];
+                const modifiers = ['', "'", '2'];
+                let scramble = [];
+                let lastMove = '';
+                
+                for (let i = 0; i < 40; i++) {
+                    let move;
+                    do {
+                        move = moves[Math.floor(Math.random() * moves.length)];
+                    } while (move.toLowerCase() === lastMove.toLowerCase());
+                    
+                    lastMove = move;
+                    scramble.push(move + modifiers[Math.floor(Math.random() * modifiers.length)]);
+                }
+                return scramble.join(' ');
+            },
+            'pyraminx': () => {
+                const moves = ['U', 'L', 'R', 'B', 'u', 'l', 'r', 'b'];
+                const modifiers = ['', "'"];
+                let scramble = [];
+                
+                for (let i = 0; i < 11; i++) {
+                    const move = moves[Math.floor(Math.random() * moves.length)];
+                    scramble.push(move + modifiers[Math.floor(Math.random() * modifiers.length)]);
+                }
+                return scramble.join(' ');
+            }
+        };
+
+        // IndexedDB functions
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, 1);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+                        store.createIndex('cubeType', 'cubeType', { unique: false });
+                    }
+                };
+            });
+        }
+
+        // Format time
+        function formatTime(ms) {
+            const totalSeconds = ms / 1000;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = (totalSeconds % 60).toFixed(2);
+            
+            if (minutes > 0) {
+                return `${minutes}:${seconds.padStart(5, '0')}`;
+            }
+            return seconds;
+        }
+
+        // Calculate average
+        function calculateAverage(times, count) {
+            if (times.length < count) return null;
+            
+            const lastTimes = times.slice(-count);
+            
+            if (count === 3) {
+                const avg = lastTimes.reduce((a, b) => a + b, 0) / lastTimes.length;
+                return avg;
+            }
+            
+            if (count === 5) {
+                const sorted = [...lastTimes].sort((a, b) => a - b);
+                sorted.shift();
+                sorted.pop();
+                const avg = sorted.reduce((a, b) => a + b, 0) / sorted.length;
+                return avg;
+            }
+            
+            return null;
+        }
+
+        // Save time to IndexedDB
+        async function saveTime(time) {
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(STORE_NAME);
+            
+            await store.add({
+                cubeType: currentCubeType,
+                time: time,
+                timestamp: Date.now()
+            });
+            
+            return transaction.complete;
+        }
+
+        // Load times from IndexedDB
+        async function loadTimes() {
+            const transaction = db.transaction([STORE_NAME], 'readonly');
+            const store = transaction.objectStore(STORE_NAME);
+            const index = store.index('cubeType');
+            const request = index.getAll(currentCubeType);
+            
+            return new Promise((resolve) => {
+                request.onsuccess = () => {
+                    sessionTimes = request.result.map(item => item.time);
+                    resolve(sessionTimes);
+                };
+            });
+        }
+
+        // Delete last time
+        async function deleteLastTime() {
+            if (sessionTimes.length === 0) {
+                alert('Aucun temps à supprimer');
+                return;
+            }
+            
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const store = transaction.objectStore(STORE_NAME);
+            const index = store.index('cubeType');
+            
+            const getAllRequest = index.getAll(currentCubeType);
+            
+            getAllRequest.onsuccess = () => {
+                const allRecords = getAllRequest.result;
+                if (allRecords.length > 0) {
+                    const lastRecord = allRecords.reduce((latest, current) => 
+                        current.timestamp > latest.timestamp ? current : latest
+                    );
+                    
+                    const deleteRequest = store.delete(lastRecord.id);
+                    
+                    deleteRequest.onsuccess = () => {
+                        sessionTimes.pop();
+                        updateStats();
+                        updateTimesList();
+                    };
+                }
+            };
+        }
+
+        // Update statistics
+        function updateStats() {
+            const pb = sessionTimes.length > 0 ? Math.min(...sessionTimes) : null;
+            const ao3 = calculateAverage(sessionTimes, 3);
+            const ao5 = calculateAverage(sessionTimes, 5);
+            
+            let bestAo3 = null;
+            let bestAo5 = null;
+            
+            for (let i = 2; i < sessionTimes.length; i++) {
+                const avg3 = calculateAverage(sessionTimes.slice(0, i + 1), 3);
+                if (avg3 && (!bestAo3 || avg3 < bestAo3)) bestAo3 = avg3;
+            }
+            
+            for (let i = 4; i < sessionTimes.length; i++) {
+                const avg5 = calculateAverage(sessionTimes.slice(0, i + 1), 5);
+                if (avg5 && (!bestAo5 || avg5 < bestAo5)) bestAo5 = avg5;
+            }
+            
+            document.getElementById('pb').textContent = pb ? formatTime(pb) : '--';
+            document.getElementById('ao3').textContent = ao3 ? formatTime(ao3) : '--';
+            document.getElementById('ao5').textContent = ao5 ? formatTime(ao5) : '--';
+            document.getElementById('pb-ao3').textContent = bestAo3 ? formatTime(bestAo3) : '--';
+            document.getElementById('pb-ao5').textContent = bestAo5 ? formatTime(bestAo5) : '--';
+        }
+
+        // Update times list
+        function updateTimesList() {
+            timesList.innerHTML = '';
+            const bestTime = sessionTimes.length > 0 ? Math.min(...sessionTimes) : null;
+            
+            [...sessionTimes].reverse().forEach((time, index) => {
+                const div = document.createElement('div');
+                div.className = 'time-item';
+                if (time === bestTime) div.classList.add('best');
+                div.textContent = formatTime(time);
+                div.title = `Temps #${sessionTimes.length - index}`;
+                timesList.appendChild(div);
+            });
+        }
+
+        // Generate new scramble
+        function newScramble() {
+            const generator = scrambleGenerators[currentCubeType];
+            scrambleDisplay.textContent = generator();
+        }
+
+        // Timer functions
+        function startHolding() {
+            if (timerState === 'running') {
+                stopTimer();
+                return;
+            }
+            
+            if (timerState !== 'idle') return;
+            
+            timerState = 'holding';
+            timerDisplay.classList.add('holding');
+            
+            holdTimeout = setTimeout(() => {
+                timerState = 'ready';
+                timerDisplay.classList.remove('holding');
+                timerDisplay.classList.add('ready');
+            }, 1000);
+        }
+
+        function stopHolding() {
+            if (timerState === 'holding') {
+                clearTimeout(holdTimeout);
+                timerState = 'idle';
+                timerDisplay.classList.remove('holding');
+            } else if (timerState === 'ready') {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            timerState = 'running';
+            startTime = Date.now();
+            timerDisplay.classList.remove('ready');
+            timerDisplay.classList.add('running');
+            scrambleDisplay.classList.add('hidden');
+            instruction.classList.add('hidden');
+            
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                timerDisplay.textContent = formatTime(elapsed);
+            }, 10);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            const finalTime = Date.now() - startTime;
+            
+            timerState = 'idle';
+            timerDisplay.classList.remove('running');
+            scrambleDisplay.classList.remove('hidden');
+            instruction.classList.remove('hidden');
+            
+            sessionTimes.push(finalTime);
+            saveTime(finalTime);
+            updateStats();
+            updateTimesList();
+            newScramble();
+        }
+
+        // Event Listeners
+        let isMouseDown = false;
+
+        timerDisplay.addEventListener('mousedown', () => {
+            isMouseDown = true;
+            startHolding();
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isMouseDown) {
+                isMouseDown = false;
+                stopHolding();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !e.repeat && !document.getElementById('settingsModal').classList.contains('active')) {
+                e.preventDefault();
+                startHolding();
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.code === 'Space' && !document.getElementById('settingsModal').classList.contains('active')) {
+                e.preventDefault();
+                stopHolding();
+            }
+        });
+
+        // Cube selector
+        document.querySelectorAll('.cube-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (timerState !== 'idle') return;
+                
+                document.querySelector('.cube-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                currentCubeType = btn.dataset.cube;
+                
+                await loadTimes();
+                updateStats();
+                updateTimesList();
+                newScramble();
+            });
+        });
+
+        // Clear button
+        document.getElementById('clearBtn').addEventListener('click', deleteLastTime);
+
+        // Initialize
+        async function init() {
+            await initDB();
+            await loadTimes();
+            updateStats();
+            updateTimesList();
+            newScramble();
+            
+            // Load theme settings
+            loadThemePresets();
+            setupColorInputs();
+            
+            const savedTheme = localStorage.getItem('selectedTheme');
+            const customTheme = localStorage.getItem('customTheme');
+            
+            if (savedTheme && savedTheme !== 'custom' && themePresets[savedTheme]) {
+                selectThemePreset(savedTheme);
+            } else if (customTheme) {
+                const colors = JSON.parse(customTheme);
+                applyTheme(colors);
+                updateColorInputs(colors);
+            } else {
+                selectThemePreset('default');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
